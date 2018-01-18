@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B2C0ECD6CF4C4D6A18F7C38 /* libPods-SLIMDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FBE7CFF26A9AF7B91179CD /* libPods-SLIMDemo.a */; };
 		BD84418420103CA0002F894F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84418320103CA0002F894F /* AppDelegate.m */; };
 		BD84418720103CA0002F894F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84418620103CA0002F894F /* ViewController.m */; };
 		BD84418A20103CA0002F894F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD84418820103CA0002F894F /* Main.storyboard */; };
 		BD84418C20103CA0002F894F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD84418B20103CA0002F894F /* Assets.xcassets */; };
 		BD84418F20103CA0002F894F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD84418D20103CA0002F894F /* LaunchScreen.storyboard */; };
 		BD84419220103CA0002F894F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84419120103CA0002F894F /* main.m */; };
+		BD84419E20103FC1002F894F /* SLIMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84419D20103FC1002F894F /* SLIMViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0BC5DB4CEFEE2B7911F92993 /* Pods-SLIMDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLIMDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SLIMDemo/Pods-SLIMDemo.release.xcconfig"; sourceTree = "<group>"; };
+		55FBE7CFF26A9AF7B91179CD /* libPods-SLIMDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SLIMDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6AB0DAE1304A8B4C5FB20956 /* Pods-SLIMDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLIMDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SLIMDemo/Pods-SLIMDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		BD84417F20103CA0002F894F /* SLIMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SLIMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD84418220103CA0002F894F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BD84418320103CA0002F894F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -26,6 +31,8 @@
 		BD84418E20103CA0002F894F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD84419020103CA0002F894F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BD84419120103CA0002F894F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BD84419C20103FC1002F894F /* SLIMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMViewController.h; sourceTree = "<group>"; };
+		BD84419D20103FC1002F894F /* SLIMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +40,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B2C0ECD6CF4C4D6A18F7C38 /* libPods-SLIMDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		208026DED306EB164137A42D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6AB0DAE1304A8B4C5FB20956 /* Pods-SLIMDemo.debug.xcconfig */,
+				0BC5DB4CEFEE2B7911F92993 /* Pods-SLIMDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		38BEAE60AD00F171109ECB91 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55FBE7CFF26A9AF7B91179CD /* libPods-SLIMDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		BD84417620103CA0002F894F = {
 			isa = PBXGroup;
 			children = (
 				BD84418120103CA0002F894F /* SLIMDemo */,
 				BD84418020103CA0002F894F /* Products */,
+				208026DED306EB164137A42D /* Pods */,
+				38BEAE60AD00F171109ECB91 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +85,9 @@
 		BD84418120103CA0002F894F /* SLIMDemo */ = {
 			isa = PBXGroup;
 			children = (
+				BD84419B20103F36002F894F /* Controller */,
+				BD84419920103F11002F894F /* Service */,
+				BD84419820103F02002F894F /* DBTool */,
 				BD84418220103CA0002F894F /* AppDelegate.h */,
 				BD84418320103CA0002F894F /* AppDelegate.m */,
 				BD84418520103CA0002F894F /* ViewController.h */,
@@ -71,6 +101,29 @@
 			path = SLIMDemo;
 			sourceTree = "<group>";
 		};
+		BD84419820103F02002F894F /* DBTool */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DBTool;
+			sourceTree = "<group>";
+		};
+		BD84419920103F11002F894F /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		BD84419B20103F36002F894F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BD84419C20103FC1002F894F /* SLIMViewController.h */,
+				BD84419D20103FC1002F894F /* SLIMViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -78,9 +131,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD84419520103CA0002F894F /* Build configuration list for PBXNativeTarget "SLIMDemo" */;
 			buildPhases = (
+				28D4E5F65002BA1C909F2F20 /* [CP] Check Pods Manifest.lock */,
 				BD84417B20103CA0002F894F /* Sources */,
 				BD84417C20103CA0002F894F /* Frameworks */,
 				BD84417D20103CA0002F894F /* Resources */,
+				372E01706C9074CED70D7BFB /* [CP] Embed Pods Frameworks */,
+				10978D20D2D2B87F6E49E64B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -137,6 +193,57 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		10978D20D2D2B87F6E49E64B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SLIMDemo/Pods-SLIMDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		28D4E5F65002BA1C909F2F20 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SLIMDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		372E01706C9074CED70D7BFB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SLIMDemo/Pods-SLIMDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		BD84417B20103CA0002F894F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -145,6 +252,7 @@
 				BD84418720103CA0002F894F /* ViewController.m in Sources */,
 				BD84419220103CA0002F894F /* main.m in Sources */,
 				BD84418420103CA0002F894F /* AppDelegate.m in Sources */,
+				BD84419E20103FC1002F894F /* SLIMViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,13 +384,14 @@
 		};
 		BD84419620103CA0002F894F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6AB0DAE1304A8B4C5FB20956 /* Pods-SLIMDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 65Q2YZ2TSD;
 				INFOPLIST_FILE = SLIMDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = gaoshilei.SLIMDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaoshilei.SLIMDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -290,13 +399,14 @@
 		};
 		BD84419720103CA0002F894F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BC5DB4CEFEE2B7911F92993 /* Pods-SLIMDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 65Q2YZ2TSD;
 				INFOPLIST_FILE = SLIMDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = gaoshilei.SLIMDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.gaoshilei.SLIMDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
