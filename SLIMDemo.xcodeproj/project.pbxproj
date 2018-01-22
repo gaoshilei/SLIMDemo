@@ -15,6 +15,7 @@
 		BD84418F20103CA0002F894F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD84418D20103CA0002F894F /* LaunchScreen.storyboard */; };
 		BD84419220103CA0002F894F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84419120103CA0002F894F /* main.m */; };
 		BD84419E20103FC1002F894F /* SLIMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84419D20103FC1002F894F /* SLIMViewController.m */; };
+		BD8441A12010513B002F894F /* SLIMSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8441A02010513B002F894F /* SLIMSocketManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,8 @@
 		BD84419120103CA0002F894F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BD84419C20103FC1002F894F /* SLIMViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMViewController.h; sourceTree = "<group>"; };
 		BD84419D20103FC1002F894F /* SLIMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMViewController.m; sourceTree = "<group>"; };
+		BD84419F2010513B002F894F /* SLIMSocketManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SLIMSocketManager.h; path = SLIMDemo/Service/SLIMSocketManager.h; sourceTree = SOURCE_ROOT; };
+		BD8441A02010513B002F894F /* SLIMSocketManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SLIMSocketManager.m; path = SLIMDemo/Service/SLIMSocketManager.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,8 @@
 		BD84419920103F11002F894F /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				BD84419F2010513B002F894F /* SLIMSocketManager.h */,
+				BD8441A02010513B002F894F /* SLIMSocketManager.m */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -253,6 +258,7 @@
 				BD84419220103CA0002F894F /* main.m in Sources */,
 				BD84418420103CA0002F894F /* AppDelegate.m in Sources */,
 				BD84419E20103FC1002F894F /* SLIMViewController.m in Sources */,
+				BD8441A12010513B002F894F /* SLIMSocketManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +396,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 65Q2YZ2TSD;
 				INFOPLIST_FILE = SLIMDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaoshilei.SLIMDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -405,6 +412,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 65Q2YZ2TSD;
 				INFOPLIST_FILE = SLIMDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gaoshilei.SLIMDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
