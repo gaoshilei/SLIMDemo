@@ -10,9 +10,9 @@
 #import <Reachability.h>
 
 #ifdef DEBUG
-#define SLIMWS_DEFAULTURL @"ws://10.7.128.143:9000/ichat"
+#define SLIMWS_DEFAULTURL @"ws://10.7.128.143:9000/chat"
 #else
-#define SLIMWS_DEFAULTURL @"ws://10.7.128.143:9000/ichat"
+#define SLIMWS_DEFAULTURL @"ws://10.7.128.143:9000/chat"
 #endif
 
 #define dispatch_main_async_safe(block)\
@@ -89,7 +89,6 @@ NSString *const SLIMWebSocketErrorDomain = @"SLIMWebSocketErrorDomain";
         return;
     }
     [self disconnect];
-    NSLog(@"SLWebSocket is connecting...");
     self.socketState = SLIMSocketStateConnecting;
     [self p_initSocket];
 }
@@ -140,7 +139,11 @@ NSString *NSStringFromSocketErrorCode(SLIMSocketErrorCode code) {
     //当重连时，需要创建一个新的 SRWebSocket
     _socket = [[SRWebSocket alloc] initWithURLRequest:self.request];
     _socket.delegate = self;
+    NSOperationQueue *opQueue = [[NSOperationQueue alloc] init];
+    opQueue.maxConcurrentOperationCount = 1;
+    [_socket setDelegateOperationQueue:opQueue];
     [_socket open];
+    NSLog(@"SLWebSocket<%p> is connecting...",_socket);
 }
 
 - (void)p_initNetworkReachability {

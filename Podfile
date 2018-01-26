@@ -4,4 +4,5 @@ target "SLIMDemo" do
 	pod 'SocketRocket'
 	pod 'Masonry'
 	pod 'Reachability'
+	pod 'UITableView+FDTemplateLayoutCell'
 end
