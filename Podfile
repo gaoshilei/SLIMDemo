@@ -5,4 +5,5 @@ target "SLIMDemo" do
 	pod 'Masonry'
 	pod 'Reachability'
 	pod 'UITableView+FDTemplateLayoutCell'
+	pod 'FMDB', '~> 2.7.2'
 end

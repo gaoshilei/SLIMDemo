@@ -18,6 +18,7 @@
 		BD8441A12010513B002F894F /* SLIMSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BD8441A02010513B002F894F /* SLIMSocketManager.m */; };
 		BDFDE8BB201B06CD004B7F9B /* SLIMBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8BA201B06CD004B7F9B /* SLIMBaseNavigationController.m */; };
 		BDFDE8C3201B0778004B7F9B /* SLIMBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8C2201B0778004B7F9B /* SLIMBaseTableViewController.m */; };
+		BDFDE8C9201E17E7004B7F9B /* SLIMDataTool.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8C8201E17E7004B7F9B /* SLIMDataTool.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,8 @@
 		BDFDE8BA201B06CD004B7F9B /* SLIMBaseNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMBaseNavigationController.m; sourceTree = "<group>"; };
 		BDFDE8C1201B0778004B7F9B /* SLIMBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMBaseTableViewController.h; sourceTree = "<group>"; };
 		BDFDE8C2201B0778004B7F9B /* SLIMBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMBaseTableViewController.m; sourceTree = "<group>"; };
+		BDFDE8C7201E17E7004B7F9B /* SLIMDataTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMDataTool.h; sourceTree = "<group>"; };
+		BDFDE8C8201E17E7004B7F9B /* SLIMDataTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMDataTool.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +171,8 @@
 		BDFDE8BF201B06EC004B7F9B /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				BDFDE8C7201E17E7004B7F9B /* SLIMDataTool.h */,
+				BDFDE8C8201E17E7004B7F9B /* SLIMDataTool.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -310,6 +315,7 @@
 				BD84418420103CA0002F894F /* AppDelegate.m in Sources */,
 				BDFDE8BB201B06CD004B7F9B /* SLIMBaseNavigationController.m in Sources */,
 				BD84419E20103FC1002F894F /* SLIMViewController.m in Sources */,
+				BDFDE8C9201E17E7004B7F9B /* SLIMDataTool.m in Sources */,
 				BD8441A12010513B002F894F /* SLIMSocketManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
