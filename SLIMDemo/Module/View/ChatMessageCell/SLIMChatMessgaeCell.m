@@ -8,6 +8,8 @@
 
 #import "SLIMChatMessgaeCell.h"
 #import "SLIMMessageContentView.h"
+#import "SLIMMessageSendStateView.h"
+#import "UIImageView+cornerRadius.h"
 
 NSMutableDictionary const * SLIMChatMessageCellTypeDict = nil;
 
@@ -24,8 +26,9 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
 @interface SLIMChatMessgaeCell()
 
 @property (nonatomic, strong) UIImageView *avatarImageView;
-@property (nonatomic, strong) UIView *messageContentView;
-@property (nonatomic, strong) 
+@property (nonatomic, strong) UIView *messageContentView;//SLIMMessageContentView
+@property (nonatomic, strong) SLIMMessageSendStateView *sendStateView;
+@property (nonatomic, strong) UIImageView *messageContentBackgroundImageView;
 
 @property (nonatomic, assign) SLIMMessageType messageType;
 
@@ -37,7 +40,9 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
 #pragma mark - life cycle
 
 + (void)load {
-    SLIMChatMessageCellTypeDict = [NSMutableDictionary dictionary];
+    if (!SLIMChatMessageCellTypeDict) {
+        SLIMChatMessageCellTypeDict = [NSMutableDictionary dictionary];
+    }
     NSLog(@"%s_%@",__func__,self);
 }
 
@@ -51,6 +56,38 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
         [self p_commonSetup];
     }
     return self;
+}
+
+#pragma mark - lazy load
+
+- (UIImageView *)avatarImageView {
+    if (!_avatarImageView) {
+        //设置圆角不可以用layer.cornerRadius的方式，离屏渲染非常卡顿
+        _avatarImageView = [[UIImageView alloc] initWithCornerRadiusAdvance:4.f rectCornerType:UIRectCornerAllCorners];
+        _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _avatarImageView;
+}
+
+- (UIView *)messageContentView {
+    if (!_messageContentView) {
+        _messageContentView = [[UIView alloc] init];
+    }
+    return _messageContentView;
+}
+
+- (SLIMMessageSendStateView *)sendStateView {
+    if (!_sendStateView) {
+        _sendStateView = [[SLIMMessageSendStateView alloc] init];
+    }
+    return _sendStateView;
+}
+
+- (UIImageView *)messageContentBackgroundImageView {
+    if (!_messageContentBackgroundImageView) {
+        _messageContentBackgroundImageView = [[UIImageView alloc] init];
+    }
+    return _messageContentBackgroundImageView;
 }
 
 #pragma mark - 类方法

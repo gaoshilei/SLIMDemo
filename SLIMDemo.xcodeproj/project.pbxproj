@@ -25,6 +25,7 @@
 		BDFDE8EF2020674B004B7F9B /* SLIMChatSystemMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8EE2020674B004B7F9B /* SLIMChatSystemMessageCell.m */; };
 		BDFDE8F22020798C004B7F9B /* SLIMMessageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8F12020798C004B7F9B /* SLIMMessageContentView.m */; };
 		BDFDE8F520207AE3004B7F9B /* SLIMMessageSendStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8F420207AE3004B7F9B /* SLIMMessageSendStateView.m */; };
+		BDFDE8F8202083AD004B7F9B /* UIImageView+cornerRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8F7202083AD004B7F9B /* UIImageView+cornerRadius.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,8 @@
 		BDFDE8F12020798C004B7F9B /* SLIMMessageContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMMessageContentView.m; sourceTree = "<group>"; };
 		BDFDE8F320207AE3004B7F9B /* SLIMMessageSendStateView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMMessageSendStateView.h; sourceTree = "<group>"; };
 		BDFDE8F420207AE3004B7F9B /* SLIMMessageSendStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMMessageSendStateView.m; sourceTree = "<group>"; };
+		BDFDE8F6202083AD004B7F9B /* UIImageView+cornerRadius.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+cornerRadius.h"; sourceTree = "<group>"; };
+		BDFDE8F7202083AD004B7F9B /* UIImageView+cornerRadius.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+cornerRadius.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +186,8 @@
 			children = (
 				BDFDE8D3201ECF8F004B7F9B /* SLIMConstants.h */,
 				BDFDE8D4201ECF8F004B7F9B /* SLIMConstants.m */,
+				BDFDE8F6202083AD004B7F9B /* UIImageView+cornerRadius.h */,
+				BDFDE8F7202083AD004B7F9B /* UIImageView+cornerRadius.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -351,6 +356,7 @@
 				BD84418720103CA0002F894F /* ViewController.m in Sources */,
 				BD84419220103CA0002F894F /* main.m in Sources */,
 				BDFDE8D1201ECE1C004B7F9B /* SLIMChatMessgaeCell.m in Sources */,
+				BDFDE8F8202083AD004B7F9B /* UIImageView+cornerRadius.m in Sources */,
 				BDFDE8F22020798C004B7F9B /* SLIMMessageContentView.m in Sources */,
 				BDFDE8C3201B0778004B7F9B /* SLIMBaseTableViewController.m in Sources */,
 				BDFDE8EF2020674B004B7F9B /* SLIMChatSystemMessageCell.m in Sources */,
