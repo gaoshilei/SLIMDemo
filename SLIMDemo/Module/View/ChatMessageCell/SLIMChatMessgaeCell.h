@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Masonry.h>
+#import "SLIMConstants.h"
 
 @interface SLIMChatMessgaeCell : UITableViewCell
+
++ (SLIMMessageType)classMessageType;
 
 @end

@@ -7,6 +7,10 @@
 //
 
 #import "SLIMBaseTableViewController.h"
+#import "SLIMConstants.h"
+#import "SLIMChatSystemMessageCell.h"
+
+static CGFloat const kSLIMChatBarHeight = 50.f;
 
 @interface SLIMBaseTableViewController ()
 
@@ -19,6 +23,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    [self p_initSubviews];
+    [self p_initilzer];
+}
+
+- (void)p_initilzer {
+    //注册cell
+    [self p_registerChatMessageCell];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
+- (void)p_initSubviews {
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(-kSLIMChatBarHeight);
+    }];
+}
+
+#pragma mark - register cell
+- (void)p_registerChatMessageCell {
+    [SLIMChatMessageCellTypeDict enumerateKeysAndObjectsUsingBlock:^(NSNumber *classType, Class  _Nonnull aClass, BOOL * _Nonnull stop) {
+        [self p_registerMessageCellClass:aClass];
+    }];
+}
+
+-(void)p_registerMessageCellClass:(Class)aClass {
+    
+    NSString *messageCellClassString = NSStringFromClass(aClass);
+    
+    if (![aClass isKindOfClass:[SLIMChatSystemMessageCell class]]) {
+        //系统消息
+        [self.tableView registerClass:aClass forCellReuseIdentifier:[NSString stringWithFormat:@"%@_%@",messageCellClassString,SLIMCellIdentifierOwnerSystem]];
+    }else {
+        //发出的消息
+        [self.tableView registerClass:aClass forCellReuseIdentifier:[NSString stringWithFormat:@"%@_%@",messageCellClassString,SLIMCellIdentifierOwnerSelf]];
+        //收到的消息
+        [self.tableView registerClass:aClass forCellReuseIdentifier:[NSString stringWithFormat:@"%@_%@",messageCellClassString,SLIMCellIdentifierOwnerOther]];
+    }
 }
 
 #pragma mark - lazy load

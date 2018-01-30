@@ -8,6 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
+//消息类型
+typedef NS_ENUM(NSInteger, SLIMMessageType) {
+    SLIMMessageTypeNone     = 0,
+    SLIMMessageTypeText     = 1,
+    SLIMMessageTypeImage    = 2,
+    SLIMMessageTypeAudio    = 3,
+    SLIMMessageTypeVideo    = 4,
+    SLIMMessageTypeLocation = 5,
+    SLIMMessageTypeSystem   = 6
+};
+
+//储存不同类型的cell class
+FOUNDATION_EXPORT NSMutableDictionary const * SLIMChatMessageCellTypeDict;
+
+static NSString *const SLIMCellIdentifierOwnerSelf      = @"SLIMCellIdentifierOwnerSelf";
+static NSString *const SLIMCellIdentifierOwnerOther     = @"SLIMCellIdentifierOwnerOther";
+static NSString *const SLIMCellIdentifierOwnerSystem    = @"SLIMCellIdentifierOwnerSystem";
+
 #pragma mark - SQL
 
 #define SLIMConversationTableName                   @"SLIMConversation"
@@ -46,6 +64,3 @@ SLIMConversationTableWhereClause
 @"UPDATE " SLIMConversationTableName         @" "            \
 @"SET " SLIMConversationTablekeyServerTimestamp  @" = ?"          \
 SLIMConversationTableWhereClause
-
-
-
