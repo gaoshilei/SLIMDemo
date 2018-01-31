@@ -6,4 +6,6 @@ target "SLIMDemo" do
 	pod 'Reachability'
 	pod 'UITableView+FDTemplateLayoutCell'
 	pod 'FMDB', '~> 2.7.2'
+	pod 'MLLabel', '~> 1.10.5'
+   	pod 'SDWebImage', '~> 4.2.3'
 end

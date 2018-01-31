@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		2B2C0ECD6CF4C4D6A18F7C38 /* libPods-SLIMDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FBE7CFF26A9AF7B91179CD /* libPods-SLIMDemo.a */; };
+		BD488C692021A3B8003A9B87 /* SLIMChatBar.m in Sources */ = {isa = PBXBuildFile; fileRef = BD488C682021A3B8003A9B87 /* SLIMChatBar.m */; };
+		BD488C6C2021A7BE003A9B87 /* NSBundle+SLIM.m in Sources */ = {isa = PBXBuildFile; fileRef = BD488C6B2021A7BE003A9B87 /* NSBundle+SLIM.m */; };
+		BD488C6F2021AB9A003A9B87 /* UIImage+SLIM.m in Sources */ = {isa = PBXBuildFile; fileRef = BD488C6E2021AB9A003A9B87 /* UIImage+SLIM.m */; };
+		BD488C732021ACF6003A9B87 /* SLIMImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BD488C722021ACF6003A9B87 /* SLIMImageManager.m */; };
+		BD488C762021B072003A9B87 /* NSString+SLIM.m in Sources */ = {isa = PBXBuildFile; fileRef = BD488C752021B072003A9B87 /* NSString+SLIM.m */; };
+		BD488C792021C87F003A9B87 /* SLIMMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = BD488C782021C87F003A9B87 /* SLIMMessage.m */; };
+		BD488C7B2021CDC8003A9B87 /* Placeholder.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BD488C7A2021CDC8003A9B87 /* Placeholder.bundle */; };
 		BD84418420103CA0002F894F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84418320103CA0002F894F /* AppDelegate.m */; };
 		BD84418720103CA0002F894F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84418620103CA0002F894F /* ViewController.m */; };
 		BD84418A20103CA0002F894F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD84418820103CA0002F894F /* Main.storyboard */; };
@@ -19,19 +26,33 @@
 		BDFDE8C3201B0778004B7F9B /* SLIMBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8C2201B0778004B7F9B /* SLIMBaseTableViewController.m */; };
 		BDFDE8CC201EC79B004B7F9B /* SLIMSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8CA201EC79B004B7F9B /* SLIMSocketManager.m */; };
 		BDFDE8D1201ECE1C004B7F9B /* SLIMChatMessgaeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8D0201ECE1C004B7F9B /* SLIMChatMessgaeCell.m */; };
-		BDFDE8D5201ECF8F004B7F9B /* SLIMConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8D4201ECF8F004B7F9B /* SLIMConstants.m */; };
 		BDFDE8E9202057F7004B7F9B /* SLIMChatTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8E8202057F7004B7F9B /* SLIMChatTextMessageCell.m */; };
 		BDFDE8EC20205864004B7F9B /* SLIMChatImageMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8EB20205864004B7F9B /* SLIMChatImageMessageCell.m */; };
 		BDFDE8EF2020674B004B7F9B /* SLIMChatSystemMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8EE2020674B004B7F9B /* SLIMChatSystemMessageCell.m */; };
 		BDFDE8F22020798C004B7F9B /* SLIMMessageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8F12020798C004B7F9B /* SLIMMessageContentView.m */; };
 		BDFDE8F520207AE3004B7F9B /* SLIMMessageSendStateView.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8F420207AE3004B7F9B /* SLIMMessageSendStateView.m */; };
 		BDFDE8F8202083AD004B7F9B /* UIImageView+cornerRadius.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8F7202083AD004B7F9B /* UIImageView+cornerRadius.m */; };
+		BDFDE96120219713004B7F9B /* MessageBubble.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BDFDE96020219713004B7F9B /* MessageBubble.bundle */; };
+		BDFDE96420219912004B7F9B /* SLIMBubbleImageFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE96320219912004B7F9B /* SLIMBubbleImageFactory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0BC5DB4CEFEE2B7911F92993 /* Pods-SLIMDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLIMDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-SLIMDemo/Pods-SLIMDemo.release.xcconfig"; sourceTree = "<group>"; };
 		55FBE7CFF26A9AF7B91179CD /* libPods-SLIMDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SLIMDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AB0DAE1304A8B4C5FB20956 /* Pods-SLIMDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SLIMDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SLIMDemo/Pods-SLIMDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		BD488C672021A3B8003A9B87 /* SLIMChatBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMChatBar.h; sourceTree = "<group>"; };
+		BD488C682021A3B8003A9B87 /* SLIMChatBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMChatBar.m; sourceTree = "<group>"; };
+		BD488C6A2021A7BE003A9B87 /* NSBundle+SLIM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBundle+SLIM.h"; sourceTree = "<group>"; };
+		BD488C6B2021A7BE003A9B87 /* NSBundle+SLIM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+SLIM.m"; sourceTree = "<group>"; };
+		BD488C6D2021AB9A003A9B87 /* UIImage+SLIM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+SLIM.h"; sourceTree = "<group>"; };
+		BD488C6E2021AB9A003A9B87 /* UIImage+SLIM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SLIM.m"; sourceTree = "<group>"; };
+		BD488C712021ACF6003A9B87 /* SLIMImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMImageManager.h; sourceTree = "<group>"; };
+		BD488C722021ACF6003A9B87 /* SLIMImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMImageManager.m; sourceTree = "<group>"; };
+		BD488C742021B072003A9B87 /* NSString+SLIM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+SLIM.h"; sourceTree = "<group>"; };
+		BD488C752021B072003A9B87 /* NSString+SLIM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+SLIM.m"; sourceTree = "<group>"; };
+		BD488C772021C87F003A9B87 /* SLIMMessage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMMessage.h; sourceTree = "<group>"; };
+		BD488C782021C87F003A9B87 /* SLIMMessage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMMessage.m; sourceTree = "<group>"; };
+		BD488C7A2021CDC8003A9B87 /* Placeholder.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Placeholder.bundle; sourceTree = "<group>"; };
 		BD84417F20103CA0002F894F /* SLIMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SLIMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD84418220103CA0002F894F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BD84418320103CA0002F894F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -53,7 +74,6 @@
 		BDFDE8CF201ECE1C004B7F9B /* SLIMChatMessgaeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMChatMessgaeCell.h; sourceTree = "<group>"; };
 		BDFDE8D0201ECE1C004B7F9B /* SLIMChatMessgaeCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMChatMessgaeCell.m; sourceTree = "<group>"; };
 		BDFDE8D3201ECF8F004B7F9B /* SLIMConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMConstants.h; sourceTree = "<group>"; };
-		BDFDE8D4201ECF8F004B7F9B /* SLIMConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMConstants.m; sourceTree = "<group>"; };
 		BDFDE8E7202057F7004B7F9B /* SLIMChatTextMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMChatTextMessageCell.h; sourceTree = "<group>"; };
 		BDFDE8E8202057F7004B7F9B /* SLIMChatTextMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMChatTextMessageCell.m; sourceTree = "<group>"; };
 		BDFDE8EA20205864004B7F9B /* SLIMChatImageMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMChatImageMessageCell.h; sourceTree = "<group>"; };
@@ -66,6 +86,9 @@
 		BDFDE8F420207AE3004B7F9B /* SLIMMessageSendStateView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMMessageSendStateView.m; sourceTree = "<group>"; };
 		BDFDE8F6202083AD004B7F9B /* UIImageView+cornerRadius.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+cornerRadius.h"; sourceTree = "<group>"; };
 		BDFDE8F7202083AD004B7F9B /* UIImageView+cornerRadius.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+cornerRadius.m"; sourceTree = "<group>"; };
+		BDFDE96020219713004B7F9B /* MessageBubble.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MessageBubble.bundle; sourceTree = "<group>"; };
+		BDFDE96220219912004B7F9B /* SLIMBubbleImageFactory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMBubbleImageFactory.h; sourceTree = "<group>"; };
+		BDFDE96320219912004B7F9B /* SLIMBubbleImageFactory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMBubbleImageFactory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +120,39 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BD488C622021A375003A9B87 /* ChatBar */ = {
+			isa = PBXGroup;
+			children = (
+				BD488C672021A3B8003A9B87 /* SLIMChatBar.h */,
+				BD488C682021A3B8003A9B87 /* SLIMChatBar.m */,
+			);
+			path = ChatBar;
+			sourceTree = "<group>";
+		};
+		BD488C632021A38B003A9B87 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BD488C772021C87F003A9B87 /* SLIMMessage.h */,
+				BD488C782021C87F003A9B87 /* SLIMMessage.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BD488C702021ACBB003A9B87 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				BDFDE8F6202083AD004B7F9B /* UIImageView+cornerRadius.h */,
+				BDFDE8F7202083AD004B7F9B /* UIImageView+cornerRadius.m */,
+				BD488C6A2021A7BE003A9B87 /* NSBundle+SLIM.h */,
+				BD488C6B2021A7BE003A9B87 /* NSBundle+SLIM.m */,
+				BD488C6D2021AB9A003A9B87 /* UIImage+SLIM.h */,
+				BD488C6E2021AB9A003A9B87 /* UIImage+SLIM.m */,
+				BD488C742021B072003A9B87 /* NSString+SLIM.h */,
+				BD488C752021B072003A9B87 /* NSString+SLIM.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		BD84417620103CA0002F894F = {
 			isa = PBXGroup;
 			children = (
@@ -124,6 +180,8 @@
 				BD84418320103CA0002F894F /* AppDelegate.m */,
 				BD84418520103CA0002F894F /* ViewController.h */,
 				BD84418620103CA0002F894F /* ViewController.m */,
+				BD488C7A2021CDC8003A9B87 /* Placeholder.bundle */,
+				BDFDE96020219713004B7F9B /* MessageBubble.bundle */,
 				BD84418820103CA0002F894F /* Main.storyboard */,
 				BD84418B20103CA0002F894F /* Assets.xcassets */,
 				BD84418D20103CA0002F894F /* LaunchScreen.storyboard */,
@@ -145,9 +203,9 @@
 		BD84419B20103F36002F894F /* Module */ = {
 			isa = PBXGroup;
 			children = (
+				BD488C632021A38B003A9B87 /* Model */,
 				BDFDE8C0201B0705004B7F9B /* View */,
 				BDFDE8BF201B06EC004B7F9B /* Tool */,
-				BDFDE8BE201B06E7004B7F9B /* Model */,
 				BDFDE8BD201B06DA004B7F9B /* Controller */,
 				BDFDE8BC201B06D2004B7F9B /* Base */,
 			);
@@ -174,20 +232,15 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		BDFDE8BE201B06E7004B7F9B /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		BDFDE8BF201B06EC004B7F9B /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				BD488C702021ACBB003A9B87 /* Category */,
 				BDFDE8D3201ECF8F004B7F9B /* SLIMConstants.h */,
-				BDFDE8D4201ECF8F004B7F9B /* SLIMConstants.m */,
-				BDFDE8F6202083AD004B7F9B /* UIImageView+cornerRadius.h */,
-				BDFDE8F7202083AD004B7F9B /* UIImageView+cornerRadius.m */,
+				BDFDE96220219912004B7F9B /* SLIMBubbleImageFactory.h */,
+				BDFDE96320219912004B7F9B /* SLIMBubbleImageFactory.m */,
+				BD488C712021ACF6003A9B87 /* SLIMImageManager.h */,
+				BD488C722021ACF6003A9B87 /* SLIMImageManager.m */,
 			);
 			path = Tool;
 			sourceTree = "<group>";
@@ -195,17 +248,10 @@
 		BDFDE8C0201B0705004B7F9B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BD488C622021A375003A9B87 /* ChatBar */,
 				BDFDE8CE201ECDE9004B7F9B /* ChatMessageCell */,
-				BDFDE8CD201ECDE1004B7F9B /* ChatBar */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		BDFDE8CD201ECDE1004B7F9B /* ChatBar */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ChatBar;
 			sourceTree = "<group>";
 		};
 		BDFDE8CE201ECDE9004B7F9B /* ChatMessageCell */ = {
@@ -288,7 +334,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD488C7B2021CDC8003A9B87 /* Placeholder.bundle in Resources */,
 				BD84418F20103CA0002F894F /* LaunchScreen.storyboard in Resources */,
+				BDFDE96120219713004B7F9B /* MessageBubble.bundle in Resources */,
 				BD84418C20103CA0002F894F /* Assets.xcassets in Resources */,
 				BD84418A20103CA0002F894F /* Main.storyboard in Resources */,
 			);
@@ -352,21 +400,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD488C732021ACF6003A9B87 /* SLIMImageManager.m in Sources */,
+				BD488C692021A3B8003A9B87 /* SLIMChatBar.m in Sources */,
 				BDFDE8EC20205864004B7F9B /* SLIMChatImageMessageCell.m in Sources */,
 				BD84418720103CA0002F894F /* ViewController.m in Sources */,
+				BD488C762021B072003A9B87 /* NSString+SLIM.m in Sources */,
 				BD84419220103CA0002F894F /* main.m in Sources */,
 				BDFDE8D1201ECE1C004B7F9B /* SLIMChatMessgaeCell.m in Sources */,
 				BDFDE8F8202083AD004B7F9B /* UIImageView+cornerRadius.m in Sources */,
 				BDFDE8F22020798C004B7F9B /* SLIMMessageContentView.m in Sources */,
 				BDFDE8C3201B0778004B7F9B /* SLIMBaseTableViewController.m in Sources */,
 				BDFDE8EF2020674B004B7F9B /* SLIMChatSystemMessageCell.m in Sources */,
+				BD488C6C2021A7BE003A9B87 /* NSBundle+SLIM.m in Sources */,
 				BDFDE8F520207AE3004B7F9B /* SLIMMessageSendStateView.m in Sources */,
 				BD84418420103CA0002F894F /* AppDelegate.m in Sources */,
 				BDFDE8BB201B06CD004B7F9B /* SLIMBaseNavigationController.m in Sources */,
 				BD84419E20103FC1002F894F /* SLIMViewController.m in Sources */,
-				BDFDE8D5201ECF8F004B7F9B /* SLIMConstants.m in Sources */,
 				BDFDE8CC201EC79B004B7F9B /* SLIMSocketManager.m in Sources */,
+				BD488C792021C87F003A9B87 /* SLIMMessage.m in Sources */,
+				BD488C6F2021AB9A003A9B87 /* UIImage+SLIM.m in Sources */,
 				BDFDE8E9202057F7004B7F9B /* SLIMChatTextMessageCell.m in Sources */,
+				BDFDE96420219912004B7F9B /* SLIMBubbleImageFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

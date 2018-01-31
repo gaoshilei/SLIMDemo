@@ -7,14 +7,13 @@
 //
 
 #import "SLIMChatMessgaeCell.h"
-#import "SLIMMessageContentView.h"
-#import "SLIMMessageSendStateView.h"
 #import "UIImageView+cornerRadius.h"
+#import "SLIMBubbleImageFactory.h"
+#import "UIImage+SLIM.h"
 
 NSMutableDictionary const * SLIMChatMessageCellTypeDict = nil;
 
-static CGFloat const kAvatarImageViewWidth = 40.f;
-static CGFloat const kAvatarImageViewHeight = kAvatarImageViewWidth;
+static CGFloat const kAvatarImageViewWidthAndHeight = 40.f;
 static CGFloat const kMessageSendStateViewWidthAndHeight = 30.f;
 static CGFloat const kMessageSendStateViewLeftOrRightMarginToMessageContent = 2.f;
 static CGFloat const kAvatarToMessageContent = 5.f;
@@ -25,12 +24,7 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
 
 @interface SLIMChatMessgaeCell()
 
-@property (nonatomic, strong) UIImageView *avatarImageView;
-@property (nonatomic, strong) UIView *messageContentView;//SLIMMessageContentView
-@property (nonatomic, strong) SLIMMessageSendStateView *sendStateView;
-@property (nonatomic, strong) UIImageView *messageContentBackgroundImageView;
-
-@property (nonatomic, assign) SLIMMessageType messageType;
+@property (nonatomic, strong, readwrite) SLIMMessage *message;
 
 @end
 
@@ -62,11 +56,21 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
 
 - (UIImageView *)avatarImageView {
     if (!_avatarImageView) {
-        //设置圆角不可以用layer.cornerRadius的方式，离屏渲染非常卡顿
+        //解决离屏渲染的问题
         _avatarImageView = [[UIImageView alloc] initWithCornerRadiusAdvance:4.f rectCornerType:UIRectCornerAllCorners];
         _avatarImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _avatarImageView;
+}
+
+- (UILabel *)nickNameView {
+    if (!_nickNameView) {
+        _nickNameView = [[UILabel alloc] init];
+        _nickNameView.font = [UIFont systemFontOfSize:SLIM_MSG_CELL_NICKNAME_FONTSIZE];
+        _nickNameView.textColor = [UIColor grayColor];
+        [_nickNameView sizeToFit];
+    }
+    return _nickNameView;
 }
 
 - (UIView *)messageContentView {
@@ -86,11 +90,29 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
 - (UIImageView *)messageContentBackgroundImageView {
     if (!_messageContentBackgroundImageView) {
         _messageContentBackgroundImageView = [[UIImageView alloc] init];
+        [_messageContentBackgroundImageView setImage:[SLIMBubbleImageFactory bubbleImageViewForOwner:self.ownerType messageType:self.messageType isHighlighted:NO]];
+        [_messageContentBackgroundImageView setHighlightedImage:[SLIMBubbleImageFactory bubbleImageViewForOwner:self.ownerType messageType:self.messageType isHighlighted:YES]];
     }
     return _messageContentBackgroundImageView;
 }
 
-#pragma mark - 类方法
+- (SLIMMessageOwnerType)ownerType {
+    _ownerType = SLIMMessageOwnerTypeNone;
+    if ([self.reuseIdentifier containsString:SLIMCellIdentifierOwnerSelf]) {
+        _ownerType = SLIMMessageOwnerTypeSelf;
+    }else if ([self.reuseIdentifier containsString:SLIMCellIdentifierOwnerOther]) {
+        _ownerType = SLIMMessageOwnerTypeOther;
+    }else if ([self.reuseIdentifier containsString:SLIMCellIdentifierOwnerSystem]) {
+        _ownerType = SLIMMessageOwnerTypeSystem;
+    }
+    return _ownerType;
+}
+
++ (BOOL)requiresConstraintBasedLayout {
+    return YES;
+}
+
+#pragma mark - private method
 
 + (void)p_registerSubClass {
     //注册所有子类
@@ -101,10 +123,76 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
     }
 }
 
+- (void)updateConstraints {
+    [super updateConstraints];
+    CGFloat width = [UIApplication sharedApplication].keyWindow.frame.size.width;
+    CGFloat messageContentWidthMax = width - kAvatarImageViewWidthAndHeight - SLIM_MSG_CELL_EDGES_OFFSET - kAvatarToMessageContent;
+    switch (self.ownerType) {
+        case SLIMMessageOwnerTypeSelf: {
+            [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.contentView.mas_right).offset(-SLIM_MSG_CELL_EDGES_OFFSET);
+                make.top.equalTo(self.contentView).offset(SLIM_MSG_CELL_EDGES_OFFSET);
+                make.width.height.mas_equalTo(kAvatarImageViewWidthAndHeight);
+            }];
+            [self.messageContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.avatarImageView);
+                make.right.equalTo(self.avatarImageView.mas_left).offset(-kAvatarToMessageContent);
+                make.width.mas_lessThanOrEqualTo(messageContentWidthMax).priorityHigh();
+                make.bottom.equalTo(self.contentView).offset(-SLIM_MSG_CELL_EDGES_OFFSET).priorityLow();
+            }];
+            [self.sendStateView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.messageContentView.mas_left).offset(-kMessageSendStateViewLeftOrRightMarginToMessageContent);
+                make.centerY.equalTo(self.messageContentView);
+                make.width.height.mas_equalTo(kMessageSendStateViewWidthAndHeight);
+            }];
+        }
+            break;
+        case SLIMMessageOwnerTypeOther: {
+            [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.left.equalTo(self.contentView).offset(SLIM_MSG_CELL_EDGES_OFFSET);
+                make.width.height.mas_equalTo(kAvatarImageViewWidthAndHeight);
+            }];
+            [self.messageContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.avatarImageView);
+                make.left.equalTo(self.avatarImageView.mas_right).offset(kAvatarToMessageContent);
+                make.width.mas_lessThanOrEqualTo(messageContentWidthMax).priorityHigh();
+                make.bottom.equalTo(self.contentView).offset(-SLIM_MSG_CELL_EDGES_OFFSET).priorityLow();
+            }];
+            [self.sendStateView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.messageContentView.mas_right).offset(kMessageSendStateViewLeftOrRightMarginToMessageContent);
+                make.centerY.equalTo(self.messageContentView);
+                make.width.height.mas_equalTo(kMessageSendStateViewWidthAndHeight);
+            }];
+        }
+            break;
+        default:
+            break;
+    }
+    [self.messageContentBackgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.messageContentView);
+    }];
+}
+
+- (void)addSubviews {
+    [self.contentView addSubview:self.avatarImageView];
+    [self.contentView addSubview:self.messageContentView];
+    [self.contentView addSubview:self.sendStateView];
+    [self.contentView addSubview:self.messageContentBackgroundImageView];
+    
+    [self.contentView insertSubview:self.messageContentBackgroundImageView belowSubview:self.messageContentView];
+    [self updateConstraintsIfNeeded];
+}
+
 + (SLIMMessageType)classMessageType {
     //必须由子类实现
     [self doesNotRecognizeSelector:_cmd];
     return SLIMMessageTypeNone;
+}
+
+- (void)configureCellWithData:(SLIMMessage *)message {
+    self.message = message;
+    UIImage *placeholder = [UIImage slim_imageNamed:@"Placeholder_Avatar" bundleName:@"Placeholder" bundleForClass:[self class]];
+    [self.avatarImageView sd_setImageWithURL:message.avatarUrl placeholderImage:placeholder];
 }
 
 - (void)p_commonSetup {
@@ -112,7 +200,7 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = [UIColor clearColor];
     self.messageType = [[self class] classMessageType];
-    
+    [self addSubviews];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
