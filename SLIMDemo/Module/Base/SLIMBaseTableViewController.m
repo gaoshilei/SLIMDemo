@@ -23,6 +23,7 @@ static CGFloat const kSLIMChatBarHeight = 50.f;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    //初始化TableView
     [self p_initSubviews];
     [self p_initilzer];
 }
@@ -48,10 +49,8 @@ static CGFloat const kSLIMChatBarHeight = 50.f;
 }
 
 -(void)p_registerMessageCellClass:(Class)aClass {
-    
     NSString *messageCellClassString = NSStringFromClass(aClass);
-    
-    if (![aClass isKindOfClass:[SLIMChatSystemMessageCell class]]) {
+    if ([aClass isKindOfClass:[SLIMChatSystemMessageCell class]]) {
         //系统消息
         [self.tableView registerClass:aClass forCellReuseIdentifier:[NSString stringWithFormat:@"%@_%@",messageCellClassString,SLIMCellIdentifierOwnerSystem]];
     }else {

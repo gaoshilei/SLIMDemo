@@ -19,7 +19,7 @@ static CGFloat const kMessageSendStateViewLeftOrRightMarginToMessageContent = 2.
 static CGFloat const kAvatarToMessageContent = 5.f;
 
 static CGFloat const SLIM_MSG_CELL_EDGES_OFFSET = 12.f;
-static CGFloat const SLIM_MSG_CELL_NICKNAME_HEIGHT = 16.f;
+//static CGFloat const SLIM_MSG_CELL_NICKNAME_HEIGHT = 16.f;
 static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
 
 @interface SLIMChatMessgaeCell()
@@ -33,21 +33,14 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
 
 #pragma mark - life cycle
 
-+ (void)load {
-    if (!SLIMChatMessageCellTypeDict) {
-        SLIMChatMessageCellTypeDict = [NSMutableDictionary dictionary];
-    }
-    NSLog(@"%s_%@",__func__,self);
-}
-
 + (void)initialize {
-    [self p_registerSubClass];
-    NSLog(@"%s_%@",__func__,self);
+    //不可以将registerSubClass调用放在这里，initialize是懒加载，这个类方法仅仅会调用一次
+    //当它的子类再次调用时，父类的这个方法不会被调用了
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ([super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        [self p_commonSetup];
+        [self setup];
     }
     return self;
 }
@@ -114,7 +107,10 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
 
 #pragma mark - private method
 
-+ (void)p_registerSubClass {
++ (void)registerSubClass {
+    if (!SLIMChatMessageCellTypeDict) {
+        SLIMChatMessageCellTypeDict = [NSMutableDictionary dictionary];
+    }
     //注册所有子类
     SLIMMessageType classType = [self classMessageType];
     Class class = [SLIMChatMessageCellTypeDict objectForKey:@(classType)];
@@ -126,7 +122,7 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
 - (void)updateConstraints {
     [super updateConstraints];
     CGFloat width = [UIApplication sharedApplication].keyWindow.frame.size.width;
-    CGFloat messageContentWidthMax = width - kAvatarImageViewWidthAndHeight - SLIM_MSG_CELL_EDGES_OFFSET - kAvatarToMessageContent;
+    CGFloat messageContentWidthMax = width - (kAvatarImageViewWidthAndHeight+SLIM_MSG_CELL_EDGES_OFFSET)*2;
     switch (self.ownerType) {
         case SLIMMessageOwnerTypeSelf: {
             [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -191,12 +187,13 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
 
 - (void)configureCellWithData:(SLIMMessage *)message {
     self.message = message;
+    self.ownerType = message.ownerType;
     UIImage *placeholder = [UIImage slim_imageNamed:@"Placeholder_Avatar" bundleName:@"Placeholder" bundleForClass:[self class]];
     [self.avatarImageView sd_setImageWithURL:message.avatarUrl placeholderImage:placeholder];
 }
 
-- (void)p_commonSetup {
-    
+- (void)setup {
+    self.contentView.translatesAutoresizingMaskIntoConstraints = YES;
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.backgroundColor = [UIColor clearColor];
     self.messageType = [[self class] classMessageType];

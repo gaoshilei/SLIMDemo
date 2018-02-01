@@ -19,16 +19,20 @@ CGFloat const SLIMTextMessageCellLabelFont = 16.f;
 
 @implementation SLIMChatTextMessageCell
 
++ (void)load {
+    [self registerSubClass];
+}
+
 - (void)updateConstraints {
     [super updateConstraints];
     [self.messageTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.messageContentView).insets(UIEdgeInsetsMake(SLIMCellMessageContentCapInsetsTopAndBottom, SLIMCellMessageContentCapInsetsLeftAndRight, SLIMCellMessageContentCapInsetsTopAndBottom, SLIMCellMessageContentCapInsetsLeftAndRight));
     }];
-    
 }
 
 - (void)configureCellWithData:(SLIMMessage *)message {
     [super configureCellWithData:message];
+    self.messageTextLabel.text = message.text;
 }
 
 + (SLIMMessageType)classMessageType {
@@ -46,6 +50,20 @@ CGFloat const SLIMTextMessageCellLabelFont = 16.f;
         }];
     }
     return _messageTextLabel;
+}
+
+- (void)setup {
+    [self.messageContentView addSubview:self.messageTextLabel];
+    [super setup];
+    //链接的颜色
+    self.messageTextLabel.linkTextAttributes = @{
+                                                 NSForegroundColorAttributeName: [UIColor redColor]
+                                                 };
+    //链接点击之后的颜色
+    self.messageTextLabel.activeLinkTextAttributes  = @{NSForegroundColorAttributeName: [UIColor redColor],
+                                                        NSBackgroundColorAttributeName: [UIColor colorWithWhite:.35f alpha:.3f]
+                                                        };
+    
 }
 
 @end

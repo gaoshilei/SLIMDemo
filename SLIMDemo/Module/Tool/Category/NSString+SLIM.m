@@ -11,7 +11,8 @@
 @implementation NSString (SLIM)
 
 - (NSString *)slim_stringByAppendingScale:(NSNumber *)scale {
-    if (fabs(scale - 1) <= __FLT_EPSILON__ || self.length == 0 || [self hasSuffix:@"/"]) {
+    double scaleValue = scale.floatValue;
+    if (fabs(scaleValue - 1) <= __FLT_EPSILON__ || self.length == 0 || [self hasSuffix:@"/"]) {
         return self.copy;
     }
     return [self stringByAppendingFormat:@"@%@x", scale];

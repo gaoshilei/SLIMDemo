@@ -61,7 +61,7 @@ static NSString *const SLIMCellIdentifierOwnerSelf      = @"SLIMCellIdentifierOw
 static NSString *const SLIMCellIdentifierOwnerOther     = @"SLIMCellIdentifierOwnerOther";
 static NSString *const SLIMCellIdentifierOwnerSystem    = @"SLIMCellIdentifierOwnerSystem";
 
-static CGFloat const SLIMCellMessageContentCapInsetsTopAndBottom = 8.f;
+static CGFloat const SLIMCellMessageContentCapInsetsTopAndBottom = 12.f;
 static CGFloat const SLIMCellMessageContentCapInsetsLeftAndRight = 15.f;
 
 #pragma mark - SQL

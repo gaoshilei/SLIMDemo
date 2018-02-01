@@ -18,7 +18,7 @@ NSString const *SLIMBubbleImageBundleName = @"MessageBubble";
                          messageType:(SLIMMessageType)msgType
                        isHighlighted:(BOOL)isHighlighted {
     NSString *messageTypeString = @"message_";
-    
+    UIEdgeInsets edgeInsets = UIEdgeInsetsZero;
     switch (msgType) {
         case SLIMMessageTypeImage:
         case SLIMMessageTypeVideo:
@@ -29,10 +29,12 @@ NSString const *SLIMBubbleImageBundleName = @"MessageBubble";
     }
     switch (ownerType) {
         case SLIMMessageOwnerTypeSelf: {
+            edgeInsets = UIEdgeInsetsMake(30, 16, 16, 24);
             messageTypeString = [messageTypeString stringByAppendingString:@"sender_"];
         }
             break;
         case SLIMMessageOwnerTypeOther: {
+            edgeInsets = UIEdgeInsetsMake(30, 16, 16, 24);
             messageTypeString = [messageTypeString stringByAppendingString:@"receiver_"];
         }
             break;
@@ -46,7 +48,7 @@ NSString const *SLIMBubbleImageBundleName = @"MessageBubble";
         messageTypeString = [messageTypeString stringByAppendingString:@"normal"];
     }
     UIImage *bubbleImage = [UIImage slim_imageNamed:messageTypeString bundleName:SLIMBubbleImageBundleName.copy bundleForClass:[self class]];
-    bubbleImage = [bubbleImage resizableImageWithCapInsets:UIEdgeInsetsMake(SLIMCellMessageContentCapInsetsTopAndBottom, SLIMCellMessageContentCapInsetsLeftAndRight, SLIMCellMessageContentCapInsetsTopAndBottom, SLIMCellMessageContentCapInsetsLeftAndRight) resizingMode:UIImageResizingModeStretch];
+    bubbleImage =  [bubbleImage resizableImageWithCapInsets:edgeInsets resizingMode:UIImageResizingModeStretch];
     return bubbleImage;
 }
 

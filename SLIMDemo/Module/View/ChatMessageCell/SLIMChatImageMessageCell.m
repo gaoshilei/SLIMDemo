@@ -14,6 +14,10 @@
 
 @implementation SLIMChatImageMessageCell
 
++ (void)load {
+    [self registerSubClass];
+}
+
 + (SLIMMessageType)classMessageType {
     return SLIMMessageTypeImage;
 }

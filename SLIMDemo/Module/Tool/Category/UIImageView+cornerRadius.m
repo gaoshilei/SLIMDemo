@@ -207,12 +207,12 @@ const char kProcessedImage;
     }
 }
 
-#pragma mark property
+#pragma mark  - property
 - (CGFloat)slBorderWidth {
     return [objc_getAssociatedObject(self, _cmd) floatValue];
 }
 
-- (void)setslBorderWidth:(CGFloat)slBorderWidth {
+- (void)setSlBorderWidth:(CGFloat)slBorderWidth {
     objc_setAssociatedObject(self, @selector(slBorderWidth), @(slBorderWidth), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -220,7 +220,7 @@ const char kProcessedImage;
     return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)setslBorderColor:(UIColor *)slBorderColor {
+- (void)setSlBorderColor:(UIColor *)slBorderColor {
     objc_setAssociatedObject(self, @selector(slBorderColor), slBorderColor, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -228,7 +228,7 @@ const char kProcessedImage;
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
-- (void)setslHadAddObserver:(BOOL)slHadAddObserver {
+- (void)setSlHadAddObserver:(BOOL)slHadAddObserver {
     objc_setAssociatedObject(self, @selector(slHadAddObserver), @(slHadAddObserver), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -236,7 +236,7 @@ const char kProcessedImage;
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
-- (void)setslIsRounding:(BOOL)slIsRounding {
+- (void)setSlIsRounding:(BOOL)slIsRounding {
     objc_setAssociatedObject(self, @selector(slIsRounding), @(slIsRounding), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -252,7 +252,7 @@ const char kProcessedImage;
     return [objc_getAssociatedObject(self, _cmd) floatValue];
 }
 
-- (void)setslRadius:(CGFloat)slRadius {
+- (void)setSlRadius:(CGFloat)slRadius {
     objc_setAssociatedObject(self, @selector(slRadius), @(slRadius), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 

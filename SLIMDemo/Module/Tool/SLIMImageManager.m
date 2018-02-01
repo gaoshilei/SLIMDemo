@@ -70,7 +70,11 @@ static SLIMImageManager *manager = nil;
     if (path.length == 0) return nil;
     NSData *data = [NSData dataWithContentsOfFile:path];
     if (data.length == 0) return nil;
-    UIImage *buffImage = [[UIImage alloc] initWithData:data];
+    /**
+     这里拿图片的时候，一定要告诉 UIImage 这个图片的 scale 是多少，否则后面的图片拉伸会出现问题
+     会导致 resizableImageWithCapInsets 无效
+     */
+    UIImage *buffImage = [[UIImage alloc] initWithData:data scale:scale.floatValue];
     [self.imageBuff setObject:imageName forKey:buffImage];
     return buffImage;
 }

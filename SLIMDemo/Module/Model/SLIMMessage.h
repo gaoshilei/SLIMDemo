@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SLIMConstants.h"
 
 @interface SLIMMessage : NSObject
 
@@ -16,5 +17,8 @@
 @property (nonatomic, strong) NSURL *imageUrl;
 @property (nonatomic, assign) NSTimeInterval sendTimestampLocal;
 @property (nonatomic, assign) NSTimeInterval sendTimestampServer;
+
+@property (nonatomic, assign) SLIMMessageType messageType;
+@property (nonatomic, assign) SLIMMessageOwnerType ownerType;
 
 @end

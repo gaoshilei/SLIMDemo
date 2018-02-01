@@ -35,8 +35,10 @@
 /** 消息发送方 */
 @property (nonatomic, assign) SLIMMessageOwnerType ownerType;
 
++ (void)registerSubClass;
 + (SLIMMessageType)classMessageType;
 
+- (void)setup;
 - (void)configureCellWithData:(SLIMMessage *)message;
 
 @end

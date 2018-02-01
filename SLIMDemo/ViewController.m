@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "SLIMViewController.h"
+#import "SLIMConverstaionViewController.h"
 #import <Masonry.h>
 
 @interface ViewController ()
@@ -36,7 +36,7 @@
 }
 
 - (void)p_customService {
-    SLIMViewController *IM = [[SLIMViewController alloc] init];
+    SLIMConverstaionViewController *IM = [[SLIMConverstaionViewController alloc] init];
     [self.navigationController pushViewController:IM animated:YES];
 }
 
