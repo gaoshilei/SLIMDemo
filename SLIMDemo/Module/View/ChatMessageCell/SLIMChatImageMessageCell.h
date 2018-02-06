@@ -10,4 +10,5 @@
 
 @interface SLIMChatImageMessageCell : SLIMChatMessgaeCell
 
+
 @end

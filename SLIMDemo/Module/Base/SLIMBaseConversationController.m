@@ -1,24 +1,25 @@
 //
-//  SLIMBaseTableViewController.m
+//  SLIMBaseConversationController.m
 //  SLIMDemo
 //
 //  Created by gaoshilei on 2018/1/26.
 //  Copyright © 2018年 gaoshilei. All rights reserved.
 //
 
-#import "SLIMBaseTableViewController.h"
+#import "SLIMBaseConversationController.h"
 #import "SLIMConstants.h"
 #import "SLIMChatSystemMessageCell.h"
 
 static CGFloat const kSLIMChatBarHeight = 50.f;
 
-@interface SLIMBaseTableViewController ()
+@interface SLIMBaseConversationController ()
 
-@property (nonatomic, strong, readwrite) UITableView *tableView;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) SLIMChatBar *chatBar;
 
 @end
 
-@implementation SLIMBaseTableViewController
+@implementation SLIMBaseConversationController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -88,6 +89,14 @@ static CGFloat const kSLIMChatBarHeight = 50.f;
     return _tableView;
 }
 
+- (SLIMChatBar *)chatBar {
+    if (!_chatBar) {
+        _chatBar = [[SLIMChatBar alloc] init];
+        [self.view bringSubviewToFront:_chatBar];
+    }
+    return _chatBar;
+}
+
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -104,6 +113,18 @@ static CGFloat const kSLIMChatBarHeight = 50.f;
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [[UIView alloc] initWithFrame:CGRectZero];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
+    return 0;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
+    return 0;
 }
 
 #pragma mark - UITableViewDataSource

@@ -13,10 +13,14 @@
 
 @property (nonatomic,   copy) NSString *text;
 @property (nonatomic, strong) NSURL *avatarUrl;
+@property (nonatomic, strong) NSString *localAvatarImageName;
 @property (nonatomic, strong) NSURL *imageThumbUrl;
 @property (nonatomic, strong) NSURL *imageUrl;
 @property (nonatomic, assign) NSTimeInterval sendTimestampLocal;
 @property (nonatomic, assign) NSTimeInterval sendTimestampServer;
+
+@property (nonatomic, strong) UIImage *thumbnailImage;
+@property (nonatomic, strong) UIImage *image;
 
 @property (nonatomic, assign) SLIMMessageType messageType;
 @property (nonatomic, assign) SLIMMessageOwnerType ownerType;

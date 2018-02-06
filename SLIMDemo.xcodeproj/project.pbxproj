@@ -17,6 +17,7 @@
 		BD488C7B2021CDC8003A9B87 /* Placeholder.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BD488C7A2021CDC8003A9B87 /* Placeholder.bundle */; };
 		BD488CB12022CA3B003A9B87 /* SLAnalogDataGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = BD488CB02022CA3B003A9B87 /* SLAnalogDataGenerator.m */; };
 		BD488CB42022F5F5003A9B87 /* SLIMConverstaionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD488CB32022F5F5003A9B87 /* SLIMConverstaionViewController.m */; };
+		BD488CB720299BCF003A9B87 /* UIColor+SLIM.m in Sources */ = {isa = PBXBuildFile; fileRef = BD488CB620299BCF003A9B87 /* UIColor+SLIM.m */; };
 		BD84418420103CA0002F894F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84418320103CA0002F894F /* AppDelegate.m */; };
 		BD84418720103CA0002F894F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84418620103CA0002F894F /* ViewController.m */; };
 		BD84418A20103CA0002F894F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD84418820103CA0002F894F /* Main.storyboard */; };
@@ -25,7 +26,7 @@
 		BD84419220103CA0002F894F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84419120103CA0002F894F /* main.m */; };
 		BD84419E20103FC1002F894F /* SLIMViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BD84419D20103FC1002F894F /* SLIMViewController.m */; };
 		BDFDE8BB201B06CD004B7F9B /* SLIMBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8BA201B06CD004B7F9B /* SLIMBaseNavigationController.m */; };
-		BDFDE8C3201B0778004B7F9B /* SLIMBaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8C2201B0778004B7F9B /* SLIMBaseTableViewController.m */; };
+		BDFDE8C3201B0778004B7F9B /* SLIMBaseConversationController.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8C2201B0778004B7F9B /* SLIMBaseConversationController.m */; };
 		BDFDE8CC201EC79B004B7F9B /* SLIMSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8CA201EC79B004B7F9B /* SLIMSocketManager.m */; };
 		BDFDE8D1201ECE1C004B7F9B /* SLIMChatMessgaeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8D0201ECE1C004B7F9B /* SLIMChatMessgaeCell.m */; };
 		BDFDE8E9202057F7004B7F9B /* SLIMChatTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BDFDE8E8202057F7004B7F9B /* SLIMChatTextMessageCell.m */; };
@@ -59,6 +60,8 @@
 		BD488CB02022CA3B003A9B87 /* SLAnalogDataGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLAnalogDataGenerator.m; sourceTree = "<group>"; };
 		BD488CB22022F5F5003A9B87 /* SLIMConverstaionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMConverstaionViewController.h; sourceTree = "<group>"; };
 		BD488CB32022F5F5003A9B87 /* SLIMConverstaionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMConverstaionViewController.m; sourceTree = "<group>"; };
+		BD488CB520299BCF003A9B87 /* UIColor+SLIM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+SLIM.h"; sourceTree = "<group>"; };
+		BD488CB620299BCF003A9B87 /* UIColor+SLIM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SLIM.m"; sourceTree = "<group>"; };
 		BD84417F20103CA0002F894F /* SLIMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SLIMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD84418220103CA0002F894F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		BD84418320103CA0002F894F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -73,8 +76,8 @@
 		BD84419D20103FC1002F894F /* SLIMViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMViewController.m; sourceTree = "<group>"; };
 		BDFDE8B9201B06CD004B7F9B /* SLIMBaseNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMBaseNavigationController.h; sourceTree = "<group>"; };
 		BDFDE8BA201B06CD004B7F9B /* SLIMBaseNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMBaseNavigationController.m; sourceTree = "<group>"; };
-		BDFDE8C1201B0778004B7F9B /* SLIMBaseTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMBaseTableViewController.h; sourceTree = "<group>"; };
-		BDFDE8C2201B0778004B7F9B /* SLIMBaseTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMBaseTableViewController.m; sourceTree = "<group>"; };
+		BDFDE8C1201B0778004B7F9B /* SLIMBaseConversationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMBaseConversationController.h; sourceTree = "<group>"; };
+		BDFDE8C2201B0778004B7F9B /* SLIMBaseConversationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SLIMBaseConversationController.m; sourceTree = "<group>"; };
 		BDFDE8CA201EC79B004B7F9B /* SLIMSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLIMSocketManager.m; sourceTree = "<group>"; };
 		BDFDE8CB201EC79B004B7F9B /* SLIMSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLIMSocketManager.h; sourceTree = "<group>"; };
 		BDFDE8CF201ECE1C004B7F9B /* SLIMChatMessgaeCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SLIMChatMessgaeCell.h; sourceTree = "<group>"; };
@@ -155,6 +158,8 @@
 				BD488C6E2021AB9A003A9B87 /* UIImage+SLIM.m */,
 				BD488C742021B072003A9B87 /* NSString+SLIM.h */,
 				BD488C752021B072003A9B87 /* NSString+SLIM.m */,
+				BD488CB520299BCF003A9B87 /* UIColor+SLIM.h */,
+				BD488CB620299BCF003A9B87 /* UIColor+SLIM.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -221,8 +226,8 @@
 		BDFDE8BC201B06D2004B7F9B /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				BDFDE8C1201B0778004B7F9B /* SLIMBaseTableViewController.h */,
-				BDFDE8C2201B0778004B7F9B /* SLIMBaseTableViewController.m */,
+				BDFDE8C1201B0778004B7F9B /* SLIMBaseConversationController.h */,
+				BDFDE8C2201B0778004B7F9B /* SLIMBaseConversationController.m */,
 				BDFDE8B9201B06CD004B7F9B /* SLIMBaseNavigationController.h */,
 				BDFDE8BA201B06CD004B7F9B /* SLIMBaseNavigationController.m */,
 			);
@@ -420,10 +425,11 @@
 				BDFDE8D1201ECE1C004B7F9B /* SLIMChatMessgaeCell.m in Sources */,
 				BDFDE8F8202083AD004B7F9B /* UIImageView+cornerRadius.m in Sources */,
 				BDFDE8F22020798C004B7F9B /* SLIMMessageContentView.m in Sources */,
-				BDFDE8C3201B0778004B7F9B /* SLIMBaseTableViewController.m in Sources */,
+				BDFDE8C3201B0778004B7F9B /* SLIMBaseConversationController.m in Sources */,
 				BDFDE8EF2020674B004B7F9B /* SLIMChatSystemMessageCell.m in Sources */,
 				BD488CB42022F5F5003A9B87 /* SLIMConverstaionViewController.m in Sources */,
 				BD488C6C2021A7BE003A9B87 /* NSBundle+SLIM.m in Sources */,
+				BD488CB720299BCF003A9B87 /* UIColor+SLIM.m in Sources */,
 				BDFDE8F520207AE3004B7F9B /* SLIMMessageSendStateView.m in Sources */,
 				BD84418420103CA0002F894F /* AppDelegate.m in Sources */,
 				BDFDE8BB201B06CD004B7F9B /* SLIMBaseNavigationController.m in Sources */,

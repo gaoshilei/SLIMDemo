@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIColor+SLIM.h"
 
 @interface SLIMChatBar : UIView
 

@@ -14,4 +14,6 @@
                   bundleName:(NSString *)bundleName
               bundleForClass:(Class)aClass;
 
+- (UIImage *)slim_imageByScalingAspectFill;
+
 @end

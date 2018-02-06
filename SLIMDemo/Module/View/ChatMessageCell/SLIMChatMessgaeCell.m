@@ -9,7 +9,6 @@
 #import "SLIMChatMessgaeCell.h"
 #import "UIImageView+cornerRadius.h"
 #import "SLIMBubbleImageFactory.h"
-#import "UIImage+SLIM.h"
 
 NSMutableDictionary const * SLIMChatMessageCellTypeDict = nil;
 
@@ -66,9 +65,9 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
     return _nickNameView;
 }
 
-- (UIView *)messageContentView {
+- (SLIMMessageContentView *)messageContentView {
     if (!_messageContentView) {
-        _messageContentView = [[UIView alloc] init];
+        _messageContentView = [[SLIMMessageContentView alloc] init];
     }
     return _messageContentView;
 }
@@ -76,6 +75,7 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
 - (SLIMMessageSendStateView *)sendStateView {
     if (!_sendStateView) {
         _sendStateView = [[SLIMMessageSendStateView alloc] init];
+        _sendStateView.hidden = YES;
     }
     return _sendStateView;
 }
@@ -119,8 +119,13 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
     }
 }
 
+- (void)addSubClassSubviews {
+    [self doesNotRecognizeSelector:_cmd];
+}
+
 - (void)updateConstraints {
     [super updateConstraints];
+    
     CGFloat width = [UIApplication sharedApplication].keyWindow.frame.size.width;
     CGFloat messageContentWidthMax = width - (kAvatarImageViewWidthAndHeight+SLIM_MSG_CELL_EDGES_OFFSET)*2;
     switch (self.ownerType) {
@@ -174,8 +179,12 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
     [self.contentView addSubview:self.messageContentView];
     [self.contentView addSubview:self.sendStateView];
     [self.contentView addSubview:self.messageContentBackgroundImageView];
-    
+    //记得要给messageContentView设置蒙版大小，不然内容就显示不出来啦！
+    self.messageContentView.layer.mask.contents = (__bridge id _Nullable)self.messageContentBackgroundImageView.image.CGImage;
     [self.contentView insertSubview:self.messageContentBackgroundImageView belowSubview:self.messageContentView];
+    //添加子类的视图，否则更新约束会报错
+    [self addSubClassSubviews];
+    //更新约束
     [self updateConstraintsIfNeeded];
 }
 
@@ -189,7 +198,11 @@ static CGFloat const SLIM_MSG_CELL_NICKNAME_FONTSIZE = 12.f;
     self.message = message;
     self.ownerType = message.ownerType;
     UIImage *placeholder = [UIImage slim_imageNamed:@"Placeholder_Avatar" bundleName:@"Placeholder" bundleForClass:[self class]];
-    [self.avatarImageView sd_setImageWithURL:message.avatarUrl placeholderImage:placeholder];
+    if ([message.avatarUrl.scheme containsString:@"http"]) {
+        [self.avatarImageView sd_setImageWithURL:message.avatarUrl placeholderImage:placeholder];
+    }else if(message.localAvatarImageName){
+        self.avatarImageView.image = [UIImage imageNamed:message.localAvatarImageName];
+    }
 }
 
 - (void)setup {

@@ -6,8 +6,8 @@
 //  Copyright © 2018年 gaoshilei. All rights reserved.
 //
 
-#import "SLIMBaseTableViewController.h"
+#import "SLIMBaseConversationController.h"
 
-@interface SLIMConverstaionViewController : SLIMBaseTableViewController
+@interface SLIMConverstaionViewController : SLIMBaseConversationController
 
 @end

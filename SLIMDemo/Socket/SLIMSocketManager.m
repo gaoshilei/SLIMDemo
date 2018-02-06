@@ -57,7 +57,6 @@ NSString *const SLIMWebSocketErrorDomain = @"SLIMWebSocketErrorDomain";
 #pragma mark - life cycle
 
 - (void)dealloc {
-    NSLog(@"%s",__func__);
     [_reachablility stopNotifier];
     [self disconnect];
     [self p_destroyHeartbeat];

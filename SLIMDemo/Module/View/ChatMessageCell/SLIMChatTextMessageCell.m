@@ -52,8 +52,11 @@ CGFloat const SLIMTextMessageCellLabelFont = 16.f;
     return _messageTextLabel;
 }
 
-- (void)setup {
+- (void)addSubClassSubviews {
     [self.messageContentView addSubview:self.messageTextLabel];
+}
+
+- (void)setup {
     [super setup];
     //链接的颜色
     self.messageTextLabel.linkTextAttributes = @{

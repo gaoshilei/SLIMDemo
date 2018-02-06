@@ -1,5 +1,5 @@
 //
-//  SLIMBaseTableViewController.h
+//  SLIMBaseConversationController.h
 //  SLIMDemo
 //
 //  Created by gaoshilei on 2018/1/26.
@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SLIMChatBar.h"
 
-@interface SLIMBaseTableViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface SLIMBaseConversationController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong, readonly) UITableView *tableView;
-
+@property (nonatomic, strong, readonly) SLIMChatBar *chatBar;
 @property (nonatomic, strong) NSMutableArray *dataArray;
 
 @end
