@@ -11,6 +11,7 @@
 
 @interface SLIMMessage : NSObject
 
+@property (nonatomic,   copy) NSString *messageId;
 @property (nonatomic,   copy) NSString *text;
 @property (nonatomic, strong) NSURL *avatarUrl;
 @property (nonatomic, strong) NSString *localAvatarImageName;

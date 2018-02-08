@@ -31,9 +31,10 @@
     NSString *iconNameOther = [SLAnalogDataGenerator randomIconImageName];
     for (NSInteger i=0; i<20; i++) {
         SLIMMessage *message = [SLIMMessage new];
+        message.messageId = [NSString stringWithFormat:@"%ld",i];
         message.text = [SLAnalogDataGenerator randomMessage];
         message.imageUrl = [NSURL URLWithString:[SLAnalogDataGenerator randomWebImageUrlString]];
-        int randomOwner = arc4random_uniform(2);
+        int randomOwner = arc4random()%2;
         if (randomOwner == 1) {
             message.localAvatarImageName = iconNameOther;
             message.ownerType = SLIMMessageOwnerTypeSelf;
@@ -94,7 +95,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     SLIMMessage *message = self.dataArray[indexPath.row];
     NSString *identifier = [self p_cellIdentifierWithMessage:message];
-    return [tableView fd_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(id cell) {
+    return [tableView fd_heightForCellWithIdentifier:identifier cacheByKey:message.messageId configuration:^(id cell) {
         [cell configureCellWithData:message];
     }];
 }

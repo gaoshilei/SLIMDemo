@@ -10,9 +10,9 @@
 #import "SLIMConstants.h"
 #import "SLIMChatSystemMessageCell.h"
 
-static CGFloat const kSLIMChatBarHeight = 50.f;
+@interface SLIMBaseConversationController () {
 
-@interface SLIMBaseConversationController ()
+}
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) SLIMChatBar *chatBar;
@@ -23,13 +23,16 @@ static CGFloat const kSLIMChatBarHeight = 50.f;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.view.backgroundColor = [UIColor whiteColor];
     self.view.backgroundColor = [UIColor whiteColor];
     //初始化TableView
-    [self p_initSubviews];
     [self p_initilzer];
+    [self p_initSubviews];
 }
 
 - (void)p_initilzer {
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     //注册cell
     [self p_registerChatMessageCell];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -38,8 +41,17 @@ static CGFloat const kSLIMChatBarHeight = 50.f;
 - (void)p_initSubviews {
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.view).offset(-kSLIMChatBarHeight);
+        make.bottom.equalTo(self.chatBar.mas_top);
     }];
+    [self.chatBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_greaterThanOrEqualTo(kSLIMChatBarMinHeight);
+    }];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark - register cell
@@ -73,6 +85,8 @@ static CGFloat const kSLIMChatBarHeight = 50.f;
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
@@ -82,7 +96,7 @@ static CGFloat const kSLIMChatBarHeight = 50.f;
         
         _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         
-        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.backgroundColor = [UIColor lightGrayColor];
         
         [self.view addSubview:_tableView];
     }
@@ -92,6 +106,7 @@ static CGFloat const kSLIMChatBarHeight = 50.f;
 - (SLIMChatBar *)chatBar {
     if (!_chatBar) {
         _chatBar = [[SLIMChatBar alloc] init];
+        [self.view addSubview:_chatBar];
         [self.view bringSubviewToFront:_chatBar];
     }
     return _chatBar;

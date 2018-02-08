@@ -7,11 +7,12 @@
 //
 
 #import "SLIMChatBar.h"
+#import <Masonry.h>
 
 CGFloat   const   kSLIMChatBarFontSize = 16.f;
 CGFloat   const   kSLIMChatBarLayerCornerRadius = 4.f;
 NSInteger const   kSLIMChatBarTextColor = 0x979797;
-NSInteger const   kSLIMChatBarBackgroundColor = 0x00000;
+NSInteger const   kSLIMChatBarBackgroundColor = 0xffffff;
 NSInteger const   kSLIMChatBarBorderColor = 0x979797;
 
 @interface SLIMChatBar()<UITextViewDelegate>
@@ -19,10 +20,18 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UIView *messageChatBarBackgroundView;
 @property (nonatomic, strong) UIButton *imageButton;
+@property (nonatomic, strong) UIView *topLineView;
+@property (nonatomic, assign) CGFloat kbHeight;
+@property (nonatomic, assign) NSTimeInterval kbAnimationDuration;
 
 @end
 
 @implementation SLIMChatBar
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -32,9 +41,69 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
 }
 
 - (void)p_setUp {
+    self.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.messageChatBarBackgroundView];
+    [self addSubview:self.topLineView];
     [self.messageChatBarBackgroundView addSubview:self.textView];
     [self.messageChatBarBackgroundView addSubview:self.imageButton];
+    
+    [self.messageChatBarBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self);
+        make.bottom.equalTo(self).priorityLow();
+    }];
+    
+    [self.topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self);
+        make.height.mas_equalTo(.5f);
+    }];
+    
+    [self.imageButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.messageChatBarBackgroundView).offset(-13.f);
+        make.left.equalTo(self.messageChatBarBackgroundView).offset(15.f);
+        make.size.mas_equalTo(CGSizeMake(28, 24));
+    }];
+    
+    [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.messageChatBarBackgroundView).offset(kSLIMChatBarTextViewBottomOffset);
+        make.left.equalTo(self.imageButton.mas_right).offset(kSLIMChatBarTextViewLROffset);
+        make.bottom.equalTo(self.messageChatBarBackgroundView).offset(-kSLIMChatBarTextViewBottomOffset);
+        make.right.equalTo(self.messageChatBarBackgroundView).offset(-kSLIMChatBarTextViewLROffset);
+        make.height.mas_greaterThanOrEqualTo(kSLIMChatBarTextViewMinHeight);
+    }];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)p_keyboardWillShow:(NSNotification *)noti {
+    CGFloat kbHeight = [[noti.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    if (kbHeight == 0) {
+        return;
+    }
+    if (self.kbHeight == kbHeight) {
+        return;
+    }
+    self.kbHeight = kbHeight;
+    NSLog(@"键盘高度变化==> %f ",kbHeight);
+    self.kbAnimationDuration = [[noti.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue]?:.25f;
+    [self p_updateChatBarKeyboardConstraints];
+}
+
+- (void)p_keyboardWillHidden:(NSNotification *)noti {
+    
+}
+
+- (void)p_updateChatBarConstraintsIfNeeded {
+
+}
+
+- (void)p_updateChatBarKeyboardConstraints{
+    [self mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(-self.kbHeight);
+    }];
+    [UIView animateWithDuration:self.kbAnimationDuration animations:^{
+        [self layoutIfNeeded];
+    } completion:nil];
 }
 
 - (UIView *)messageChatBarBackgroundView {
@@ -52,10 +121,11 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
         _textView.textColor = [UIColor slim_colorWithHexValue:kSLIMChatBarTextColor];
         _textView.backgroundColor = [UIColor slim_colorWithHexValue:kSLIMChatBarBackgroundColor];
         _textView.layer.cornerRadius = kSLIMChatBarLayerCornerRadius;
-        _textView.layer.borderColor = (__bridge CGColorRef)([UIColor slim_colorWithHexValue:kSLIMChatBarBorderColor]);
+        _textView.layer.borderColor = [UIColor slim_colorWithHexValue:kSLIMChatBarBorderColor].CGColor;
         _textView.layer.borderWidth = .5f;
         _textView.returnKeyType = UIReturnKeySend;
         _textView.clipsToBounds = YES;
+        _textView.scrollsToTop = NO;
     }
     return _textView;
 }
@@ -71,6 +141,13 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
     return _imageButton;
 }
 
+- (UIView *)topLineView {
+    if (!_topLineView) {
+        _topLineView = [[UIView alloc] init];
+        _topLineView.backgroundColor = [UIColor slim_colorWithHexValue:kSLIMChatBarBorderColor];
+    }
+    return _topLineView;
+}
 
 - (void)p_sendPhotoAction:(UIButton *)button {
 
