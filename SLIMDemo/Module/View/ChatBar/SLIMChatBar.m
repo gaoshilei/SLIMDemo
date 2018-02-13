@@ -68,7 +68,7 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
         make.left.equalTo(self.imageButton.mas_right).offset(kSLIMChatBarTextViewLROffset);
         make.bottom.equalTo(self.messageChatBarBackgroundView).offset(-kSLIMChatBarTextViewBottomOffset);
         make.right.equalTo(self.messageChatBarBackgroundView).offset(-kSLIMChatBarTextViewLROffset);
-        make.height.mas_greaterThanOrEqualTo(kSLIMChatBarTextViewMinHeight);
+        make.height.mas_equalTo(kSLIMChatBarTextViewMinHeight);
     }];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
