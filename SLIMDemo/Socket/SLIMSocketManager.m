@@ -109,6 +109,11 @@ NSString *const SLIMWebSocketErrorDomain = @"SLIMWebSocketErrorDomain";
     [_socket send:message];
 }
 
+- (void)sendPing {
+    NSData *pingData = [@"heart" dataUsingEncoding:NSUTF8StringEncoding];
+    [_socket sendPing:pingData];
+}
+
 NSString *NSStringFromSocketState(SLIMSocketState state) {
     switch (state) {
         case SLIMSocketStateOffline: return @"socket状态：网络中断";
@@ -189,8 +194,12 @@ NSString *NSStringFromSocketErrorCode(SLIMSocketErrorCode code) {
         [self p_destroyHeartbeat];
         self.timerProxy = [SLIMTimerProxy alloc];
         self.timerProxy.weakManager = self;
-        self.heartbeatInterval = self.heartbeatInterval>0?self.heartbeatInterval<10?self.heartbeatInterval:2:2;
-        _heartbeat = [NSTimer scheduledTimerWithTimeInterval:self.heartbeatInterval*60 target:self.timerProxy selector:@selector(p_heartBeat) userInfo:nil repeats:YES];
+        self.heartbeatInterval = self.heartbeatInterval>0?(self.heartbeatInterval<10?self.heartbeatInterval:2):2;
+        _heartbeat = [NSTimer scheduledTimerWithTimeInterval:self.heartbeatInterval*60
+                                                      target:self.timerProxy
+                                                    selector:@selector(p_heartBeat)
+                                                    userInfo:nil
+                                                     repeats:YES];
         [[NSRunLoop mainRunLoop] addTimer:_heartbeat forMode:NSRunLoopCommonModes];
     })
 }
@@ -206,7 +215,7 @@ NSString *NSStringFromSocketErrorCode(SLIMSocketErrorCode code) {
 
 - (void)p_heartBeat {
     if (_socket) {
-        [_socket send:@"heartbeat"];
+        [self sendPing];
     }
 }
 

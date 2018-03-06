@@ -55,6 +55,8 @@ NSString *NSStringFromSocketErrorCode(SLIMSocketErrorCode code);
 
 - (void)send:(NSString *)message;
 
+- (void)sendPing;
+
 @end
 
 @protocol SLIMWebSocketDelegate<NSObject>

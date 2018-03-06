@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SLIMChatBar.h"
 
-@interface SLIMBaseConversationController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface SLIMBaseConversationController : UIViewController<UITableViewDelegate, UITableViewDataSource, SLIMChatBarDelegate>
 
 @property (nonatomic, strong, readonly) UITableView *tableView;
 @property (nonatomic, strong, readonly) SLIMChatBar *chatBar;

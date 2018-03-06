@@ -42,6 +42,7 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
 
 - (void)p_setUp {
     self.backgroundColor = [UIColor whiteColor];
+
     [self addSubview:self.messageChatBarBackgroundView];
     [self addSubview:self.topLineView];
     [self.messageChatBarBackgroundView addSubview:self.textView];
@@ -49,7 +50,7 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
     
     [self.messageChatBarBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self);
-        make.bottom.equalTo(self).priorityLow();
+        make.bottom.equalTo(self);
     }];
     
     [self.topLineView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -64,11 +65,13 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
     }];
     
     [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.messageChatBarBackgroundView).offset(kSLIMChatBarTextViewBottomOffset);
         make.left.equalTo(self.imageButton.mas_right).offset(kSLIMChatBarTextViewLROffset);
-        make.bottom.equalTo(self.messageChatBarBackgroundView).offset(-kSLIMChatBarTextViewBottomOffset);
         make.right.equalTo(self.messageChatBarBackgroundView).offset(-kSLIMChatBarTextViewLROffset);
-        make.height.mas_equalTo(kSLIMChatBarTextViewMinHeight);
+        make.top.equalTo(self.messageChatBarBackgroundView).offset(kSLIMChatBarTextViewBottomOffset);
+        make.bottom.equalTo(self.messageChatBarBackgroundView).offset(-kSLIMChatBarTextViewBottomOffset);
+        make.height.mas_equalTo(kSLIMChatBarTextViewMinHeight).priorityLow();
+        make.height.mas_greaterThanOrEqualTo(kSLIMChatBarTextViewMinHeight).priorityHigh();
+        make.height.mas_lessThanOrEqualTo(kSLIMChatBarTextViewMaxHeight).priorityHigh();
     }];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
@@ -94,7 +97,7 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
 }
 
 - (void)p_updateChatBarConstraintsIfNeeded {
-
+    
 }
 
 - (void)p_updateChatBarKeyboardConstraints{
@@ -106,6 +109,44 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
     } completion:nil];
 }
 
+#pragma mark - UITextView Delegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+//        [self sendTextMessage:textView.text];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    CGSize textSize = [textView sizeThatFits:CGSizeMake(CGRectGetWidth(textView.frame), 1000)];
+    CGFloat newTextHeight = MAX(kSLIMChatBarTextViewMinHeight, MIN(kSLIMChatBarTextViewMaxHeight, textSize.height));
+    [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(newTextHeight);
+    }];
+    void(^setContentOffBlock)(void) = ^void{
+        if (textView.scrollEnabled) {
+            if (newTextHeight == kSLIMChatBarTextViewMaxHeight) {
+                [textView setContentOffset:CGPointMake(0, textView.contentSize.height - newTextHeight) animated:YES];
+            } else {
+                [textView setContentOffset:CGPointZero animated:YES];
+            }
+            [self p_chatBarFrameDidChange];
+        }
+    };
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.01f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        setContentOffBlock();
+    });
+}
+
+- (void)p_chatBarFrameDidChange {
+    if ([self.delegate respondsToSelector:@selector(chatBarFrameDidChange:shouldScrollToBottom:)]) {
+        [self.delegate chatBarFrameDidChange:self shouldScrollToBottom:YES];
+    }
+}
+
+
+#pragma mark - lazy load
 - (UIView *)messageChatBarBackgroundView {
     if (!_messageChatBarBackgroundView) {
         _messageChatBarBackgroundView = [[UIView alloc] init];
@@ -120,6 +161,7 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
         _textView.delegate = self;
         _textView.textColor = [UIColor slim_colorWithHexValue:kSLIMChatBarTextColor];
         _textView.backgroundColor = [UIColor slim_colorWithHexValue:kSLIMChatBarBackgroundColor];
+        
         _textView.layer.cornerRadius = kSLIMChatBarLayerCornerRadius;
         _textView.layer.borderColor = [UIColor slim_colorWithHexValue:kSLIMChatBarBorderColor].CGColor;
         _textView.layer.borderWidth = .5f;

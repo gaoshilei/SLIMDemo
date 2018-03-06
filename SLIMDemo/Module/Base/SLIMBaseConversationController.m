@@ -25,17 +25,18 @@
     [super viewDidLoad];
     self.navigationController.view.backgroundColor = [UIColor whiteColor];
     self.view.backgroundColor = [UIColor whiteColor];
+    [self p_initSubviews];
     //初始化TableView
     [self p_initilzer];
-    [self p_initSubviews];
 }
 
 - (void)p_initilzer {
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //注册cell
     [self p_registerChatMessageCell];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self p_setTableViewInsets];
 }
 
 - (void)p_initSubviews {
@@ -45,8 +46,15 @@
     }];
     [self.chatBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(self.tableView.mas_bottom);
         make.height.mas_greaterThanOrEqualTo(kSLIMChatBarMinHeight);
     }];
+}
+
+- (void)p_setTableViewInsets {
+    UIEdgeInsets insets = UIEdgeInsetsMake(20.f, 0, kSLIMChatBarMinHeight, 0);
+    self.tableView.contentInset = insets;
+    self.tableView.scrollIndicatorInsets = insets;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -98,6 +106,8 @@
         
         _tableView.backgroundColor = [UIColor lightGrayColor];
         
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        
         [self.view addSubview:_tableView];
     }
     return _tableView;
@@ -108,8 +118,16 @@
         _chatBar = [[SLIMChatBar alloc] init];
         [self.view addSubview:_chatBar];
         [self.view bringSubviewToFront:_chatBar];
+        _chatBar.delegate = self;
     }
     return _chatBar;
+}
+
+#pragma mark - SLChatBarDelegate
+- (void)chatBarFrameDidChange:(SLIMChatBar *)chatBar shouldScrollToBottom:(BOOL)shouldScrollToBottom {
+    [UIView animateWithDuration:.25f animations:^{
+        [self.tableView.superview layoutIfNeeded];
+    }];
 }
 
 #pragma mark - UITableViewDelegate
