@@ -109,29 +109,27 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
     } completion:nil];
 }
 
-#pragma mark - UITextView Delegate
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-    if ([text isEqualToString:@"\n"]) {
-//        [self sendTextMessage:textView.text];
-        return NO;
-    }
-    return YES;
+- (void)p_sendTextMessage:(NSString *)message {
+    
 }
 
-- (void)textViewDidChange:(UITextView *)textView {
+- (void)p_textViewDidChange:(UITextView *)textView shouldCacheText:(BOOL)shouldCacheText{
+    if (shouldCacheText) {
+        self.cachedText = textView.text;
+    }
     CGSize textSize = [textView sizeThatFits:CGSizeMake(CGRectGetWidth(textView.frame), 1000)];
     CGFloat newTextHeight = MAX(kSLIMChatBarTextViewMinHeight, MIN(kSLIMChatBarTextViewMaxHeight, textSize.height));
     [self.textView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(newTextHeight);
     }];
     void(^setContentOffBlock)(void) = ^void{
-        if (textView.scrollEnabled) {
+        if (textView.scrollEnabled && self.allowTextViewContentOffset) {
             if (newTextHeight == kSLIMChatBarTextViewMaxHeight) {
                 [textView setContentOffset:CGPointMake(0, textView.contentSize.height - newTextHeight) animated:YES];
             } else {
                 [textView setContentOffset:CGPointZero animated:YES];
             }
-            [self p_chatBarFrameDidChange];
+            [self p_chatBarFrameDidChangeShouldScrollToBottom:YES];
         }
     };
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(.01f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -139,12 +137,30 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
     });
 }
 
-- (void)p_chatBarFrameDidChange {
+- (void)p_chatBarFrameDidChangeShouldScrollToBottom:(BOOL)shouldScrollToBottom {
     if ([self.delegate respondsToSelector:@selector(chatBarFrameDidChange:shouldScrollToBottom:)]) {
-        [self.delegate chatBarFrameDidChange:self shouldScrollToBottom:YES];
+        [self.delegate chatBarFrameDidChange:self shouldScrollToBottom:shouldScrollToBottom];
     }
 }
 
+#pragma mark - UITextView Delegate
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    //在文字中间进行编辑不滚动textView
+    if (range.location == textView.text.length) {
+        self.allowTextViewContentOffset = YES;
+    }else {
+        self.allowTextViewContentOffset = NO;
+    }
+    if ([text isEqualToString:@"\n"]) {
+        [self p_sendTextMessage:textView.text];
+        return NO;
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    [self p_textViewDidChange:textView shouldCacheText:YES];
+}
 
 #pragma mark - lazy load
 - (UIView *)messageChatBarBackgroundView {

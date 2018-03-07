@@ -22,11 +22,15 @@ static CGFloat const kSLIMChatBarMaxHeight = kSLIMChatBarTextViewMaxHeight + 2*k
 @protocol SLIMChatBarDelegate<NSObject>
 
 - (void)chatBarFrameDidChange:(SLIMChatBar *)chatBar shouldScrollToBottom:(BOOL)shouldScrollToBottom;
+- (void)chatBar:(SLIMChatBar *)chatBar sendTextMessage:(NSString *)message;
 
 @end
 
 @interface SLIMChatBar : UIView
 
 @property (nonatomic, weak) id<SLIMChatBarDelegate> delegate;
+
+@property (nonatomic, assign) BOOL allowTextViewContentOffset;
+@property (nonatomic,   copy) NSString *cachedText;
 
 @end
