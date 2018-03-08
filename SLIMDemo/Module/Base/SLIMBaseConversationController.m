@@ -41,7 +41,6 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //注册cell
     [self p_registerChatMessageCell];
-    [self p_setTableViewInsets];
 }
 
 - (void)p_initSubviews {
@@ -56,12 +55,6 @@
         make.height.mas_greaterThanOrEqualTo(kSLIMChatBarMinHeight).priorityHigh();
         make.height.mas_lessThanOrEqualTo(kSLIMChatBarMaxHeight).priorityHigh();
     }];
-}
-
-- (void)p_setTableViewInsets {
-    UIEdgeInsets insets = UIEdgeInsetsMake(20.f, 0, kSLIMChatBarMinHeight, 0);
-    self.tableView.contentInset = insets;
-    self.tableView.scrollIndicatorInsets = insets;
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
@@ -129,40 +122,14 @@
 
 #pragma mark - SLChatBarDelegate
 - (void)chatBarFrameDidChange:(SLIMChatBar *)chatBar shouldScrollToBottom:(BOOL)shouldScrollToBottom {
-    [UIView animateWithDuration:.35f animations:^{
+    [UIView animateWithDuration:.25f animations:^{
         [self.tableView.superview layoutIfNeeded];
+        self.shouldScrollToBottom = shouldScrollToBottom;
+        [self p_scrollToBottomAnimated:NO];
     }];
 }
 
 #pragma mark - UITableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return [[UIView alloc] initWithFrame:CGRectZero];
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    return [[UIView alloc] initWithFrame:CGRectZero];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
-    return 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
-    return 0;
-}
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -188,6 +155,19 @@
         return NO;
     }
     return YES;
+}
+
+#pragma mark - Private Method
+- (void)p_scrollToBottomAnimated:(BOOL)animated {
+    if (!self.shouldScrollToBottom) {
+        return;
+    }
+    NSInteger rows = [self.tableView numberOfRowsInSection:0];
+    if (rows==0) {
+        return;
+    }
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rows-1 inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
 }
 
 @end

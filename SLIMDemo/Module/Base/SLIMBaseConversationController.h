@@ -14,5 +14,6 @@
 @property (nonatomic, strong, readonly) UITableView *tableView;
 @property (nonatomic, strong, readonly) SLIMChatBar *chatBar;
 @property (nonatomic, strong) NSMutableArray *dataArray;
+@property (nonatomic, assign) BOOL shouldScrollToBottom;
 
 @end

@@ -81,7 +81,6 @@
 }
 
 #pragma mark - UITableView DataSource
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SLIMMessage *message = self.dataArray[indexPath.row];
     NSString *identifier = [self p_cellIdentifierWithMessage:message];
@@ -121,7 +120,6 @@
 - (void)messageImageDidDownload:(SLIMChatImageMessageCell *)messageCell {
 
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
