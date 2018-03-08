@@ -10,7 +10,7 @@
 #import "SLIMConstants.h"
 #import "SLIMChatSystemMessageCell.h"
 
-@interface SLIMBaseConversationController () {
+@interface SLIMBaseConversationController ()<UIGestureRecognizerDelegate> {
 
 }
 
@@ -28,6 +28,11 @@
     [self p_initSubviews];
     //初始化TableView
     [self p_initilzer];
+    
+    //给UITableView添加手势
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
+    tapGesture.delegate = self;
+    [self.tableView addGestureRecognizer:tapGesture];
 }
 
 - (void)p_initilzer {
@@ -47,7 +52,9 @@
     [self.chatBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.top.equalTo(self.tableView.mas_bottom);
-        make.height.mas_greaterThanOrEqualTo(kSLIMChatBarMinHeight);
+        make.height.mas_equalTo(kSLIMChatBarMinHeight).priorityLow();
+        make.height.mas_greaterThanOrEqualTo(kSLIMChatBarMinHeight).priorityHigh();
+        make.height.mas_lessThanOrEqualTo(kSLIMChatBarMaxHeight).priorityHigh();
     }];
 }
 
@@ -93,7 +100,6 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -105,8 +111,6 @@
         _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         
         _tableView.backgroundColor = [UIColor lightGrayColor];
-        
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         
         [self.view addSubview:_tableView];
     }
@@ -125,7 +129,7 @@
 
 #pragma mark - SLChatBarDelegate
 - (void)chatBarFrameDidChange:(SLIMChatBar *)chatBar shouldScrollToBottom:(BOOL)shouldScrollToBottom {
-    [UIView animateWithDuration:.25f animations:^{
+    [UIView animateWithDuration:.35f animations:^{
         [self.tableView.superview layoutIfNeeded];
     }];
 }
@@ -173,6 +177,17 @@
     //子类实现
     [self doesNotRecognizeSelector:_cmd];
     return nil;
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    //点击页面收起键盘
+    [[NSNotificationCenter defaultCenter] postNotificationName:kSLIMCharBarKeyboardHideNotificationName object:nil];
+    //点击了tableViewCell，不截获Touch事件
+    if([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return YES;
 }
 
 @end
