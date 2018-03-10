@@ -10,7 +10,8 @@
 #import "UIColor+SLIM.h"
 #import "SLIMConstants.h"
 
-//static CGFloat const kSLIMChatBarHeight = 50.f;
+UIKIT_EXTERN NSString *const kSLIMCharBarKeyboardHideNotificationName;
+
 static CGFloat const kSLIMChatBarTextViewBottomOffset = 7.f;
 static CGFloat const kSLIMChatBarTextViewLROffset = 15.f;
 static CGFloat const kSLIMChatBarTextViewMinHeight = 36.f;
@@ -20,9 +21,10 @@ static CGFloat const kSLIMChatBarMaxHeight = kSLIMChatBarTextViewMaxHeight + 2*k
 
 @class SLIMChatBar;
 @protocol SLIMChatBarDelegate<NSObject>
-
+@optional
 - (void)chatBarFrameDidChange:(SLIMChatBar *)chatBar shouldScrollToBottom:(BOOL)shouldScrollToBottom;
 - (void)chatBar:(SLIMChatBar *)chatBar sendTextMessage:(NSString *)message;
+- (void)chatBarSendImageMessage:(SLIMChatBar *)chatBar;
 
 @end
 

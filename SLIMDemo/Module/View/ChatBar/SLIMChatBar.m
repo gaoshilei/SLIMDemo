@@ -15,6 +15,8 @@ NSInteger const   kSLIMChatBarTextColor = 0x979797;
 NSInteger const   kSLIMChatBarBackgroundColor = 0xffffff;
 NSInteger const   kSLIMChatBarBorderColor = 0x979797;
 
+NSString *const kSLIMCharBarKeyboardHideNotificationName = @"kSLIMCharBarKeyboardHideNotificationName";
+
 @interface SLIMChatBar()<UITextViewDelegate>
 
 @property (nonatomic, strong) UITextView *textView;
@@ -31,6 +33,7 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kSLIMCharBarKeyboardHideNotificationName object:nil];
 }
 
 - (instancetype)init {
@@ -74,43 +77,35 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
         make.height.mas_lessThanOrEqualTo(kSLIMChatBarTextViewMaxHeight).priorityHigh();
     }];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(p_keyboardHide) name:kSLIMCharBarKeyboardHideNotificationName object:nil];
+}
+
+#pragma mark - 键盘事件
+- (void)p_keyboardHide {
+    [self.textView resignFirstResponder];
 }
 
 - (void)p_keyboardWillShow:(NSNotification *)noti {
-    CGFloat kbHeight = [[noti.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
-    if (kbHeight == 0) {
-        return;
-    }
-    if (self.kbHeight == kbHeight) {
-        return;
-    }
-    self.kbHeight = kbHeight;
-    NSLog(@"键盘高度变化==> %f ",kbHeight);
-    self.kbAnimationDuration = [[noti.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue]?:.25f;
+    self.kbHeight = [[noti.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size.height;
+    self.kbAnimationDuration = [[noti.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     [self p_updateChatBarKeyboardConstraints];
 }
 
 - (void)p_keyboardWillHidden:(NSNotification *)noti {
-    
-}
-
-- (void)p_updateChatBarConstraintsIfNeeded {
-    
+    self.kbHeight = 0;
+    [self p_updateChatBarKeyboardConstraints];
 }
 
 - (void)p_updateChatBarKeyboardConstraints{
     [self mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(-self.kbHeight);
     }];
-    [UIView animateWithDuration:self.kbAnimationDuration animations:^{
+    [UIView animateWithDuration:self.kbAnimationDuration delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
         [self layoutIfNeeded];
     } completion:nil];
-}
-
-- (void)p_sendTextMessage:(NSString *)message {
-    
+    [self p_chatBarFrameDidChangeShouldScrollToBottom:YES];
 }
 
 - (void)p_textViewDidChange:(UITextView *)textView shouldCacheText:(BOOL)shouldCacheText{
@@ -141,6 +136,17 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
     if ([self.delegate respondsToSelector:@selector(chatBarFrameDidChange:shouldScrollToBottom:)]) {
         [self.delegate chatBarFrameDidChange:self shouldScrollToBottom:shouldScrollToBottom];
     }
+}
+
+#pragma mark - 消息类动作
+- (void)p_sendTextMessage:(NSString *)message {
+    if ([self.delegate respondsToSelector:@selector(chatBar:sendTextMessage:)]) {
+        [self.delegate chatBar:self sendTextMessage:message];
+    }
+}
+
+- (void)p_sendPhotoAction:(UIButton *)button {
+    
 }
 
 #pragma mark - UITextView Delegate
@@ -205,10 +211,6 @@ NSInteger const   kSLIMChatBarBorderColor = 0x979797;
         _topLineView.backgroundColor = [UIColor slim_colorWithHexValue:kSLIMChatBarBorderColor];
     }
     return _topLineView;
-}
-
-- (void)p_sendPhotoAction:(UIButton *)button {
-
 }
 
 @end
