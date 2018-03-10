@@ -10,4 +10,11 @@
 
 @implementation SLIMMessage
 
++ (NSDictionary *)mj_replacedKeyFromPropertyName {
+    return @{
+             @"messageType":@"type",
+             @"messageId":@"id"
+             };
+}
+
 @end
