@@ -20,7 +20,7 @@
 @end
 
 @implementation SLIMBaseConversationController
-
+#pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.view.backgroundColor = [UIColor whiteColor];
@@ -48,12 +48,11 @@
         make.top.left.right.equalTo(self.view);
         make.bottom.equalTo(self.chatBar.mas_top);
     }];
+
     [self.chatBar mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.top.equalTo(self.tableView.mas_bottom);
-        make.height.mas_equalTo(kSLIMChatBarMinHeight).priorityLow();
-        make.height.mas_greaterThanOrEqualTo(kSLIMChatBarMinHeight).priorityHigh();
-        make.height.mas_lessThanOrEqualTo(kSLIMChatBarMaxHeight).priorityHigh();
+        make.height.mas_lessThanOrEqualTo(kSLIMChatBarMaxHeight);
     }];
 }
 
@@ -123,9 +122,9 @@
 #pragma mark - SLChatBarDelegate
 - (void)chatBarFrameDidChange:(SLIMChatBar *)chatBar shouldScrollToBottom:(BOOL)shouldScrollToBottom {
     [UIView animateWithDuration:.25f animations:^{
-        [self.tableView.superview layoutIfNeeded];
-        self.shouldScrollToBottom = shouldScrollToBottom;
-        [self p_scrollToBottomAnimated:NO];
+        [self.view layoutIfNeeded];
+        self.allowScrollToBottom = shouldScrollToBottom;
+        [self scrollToBottomAnimated:NO];
     }];
 }
 
@@ -156,10 +155,9 @@
     }
     return YES;
 }
-
-#pragma mark - Private Method
-- (void)p_scrollToBottomAnimated:(BOOL)animated {
-    if (!self.shouldScrollToBottom) {
+#pragma mark - Public Method
+- (void)scrollToBottomAnimated:(BOOL)animated {
+    if (!self.allowScrollToBottom) {
         return;
     }
     NSInteger rows = [self.tableView numberOfRowsInSection:0];
@@ -169,5 +167,10 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rows-1 inSection:0];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
 }
+#pragma mark - Private Method
+
+
+#pragma mark - SLIMChatBarDelegate
+
 
 @end

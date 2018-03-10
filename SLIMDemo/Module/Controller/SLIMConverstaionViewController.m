@@ -20,10 +20,21 @@
 
 @implementation SLIMConverstaionViewController
 
+- (instancetype)init {
+    if (self = [super init]) {
+        [self p_setup];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self p_initWebSocket];
     [self p_initData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)p_initData {
@@ -37,10 +48,10 @@
         int randomOwner = arc4random()%2;
         if (randomOwner == 1) {
             message.localAvatarImageName = iconNameOther;
-            message.ownerType = SLIMMessageOwnerTypeSelf;
+            message.sourceType = SLIMMessageSourceTypeSelf;
         }else {
             message.localAvatarImageName = iconNameSelf;
-            message.ownerType = SLIMMessageOwnerTypeOther;
+            message.sourceType = SLIMMessageSourceTypeOther;
         }
         int randomMessageType = arc4random_uniform(100);
         if (randomMessageType % 2 == 0) {
@@ -57,23 +68,27 @@
     [_socketManager connect];
 }
 
+- (void)p_setup {
+    self.allowScrollToBottom = YES;
+}
+
 - (NSString *)p_cellIdentifierWithMessage:(SLIMMessage *)message {
-    SLIMMessageOwnerType ownerType = message.ownerType;
+    SLIMMessageSourceType sourceType = message.sourceType;
     SLIMMessageType messageType = message.messageType;
     Class cellClass = [SLIMChatMessageCellTypeDict objectForKey:@(messageType)];
     NSString *classStr = NSStringFromClass(cellClass);
     NSString *cellIdentifier = [NSString stringWithFormat:@"%@_",classStr];
-    switch (ownerType) {
-        case SLIMMessageOwnerTypeSelf:
+    switch (sourceType) {
+        case SLIMMessageSourceTypeSelf:
             cellIdentifier = [cellIdentifier stringByAppendingString:SLIMCellIdentifierOwnerSelf];
             break;
-        case SLIMMessageOwnerTypeOther:
+        case SLIMMessageSourceTypeOther:
             cellIdentifier = [cellIdentifier stringByAppendingString:SLIMCellIdentifierOwnerOther];
             break;
-        case SLIMMessageOwnerTypeSystem:
+        case SLIMMessageSourceTypeSystem:
             cellIdentifier = [cellIdentifier stringByAppendingString:SLIMCellIdentifierOwnerSystem];
             break;
-        case SLIMMessageOwnerTypeNone:
+        case SLIMMessageSourceTypeNone:
             cellIdentifier = nil;
             break;
     }
@@ -101,19 +116,20 @@
 
 #pragma mark - SLIMWebSocketDelegate
 - (void)webSocket:(SLIMSocketManager *)webSocket didReceiveMessage:(id)message {
-    NSLog(@"%s;%@",__func__,message);
+    NSDictionary *response = [message mj_JSONObject];
+    NSLog(@"didReceiveMessage：%@",response);
 }
 
 - (void)webSocket:(SLIMSocketManager *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
-    NSLog(@"%s;%@",__func__,reason);
+
 }
 
 - (void)webSocket:(SLIMSocketManager *)webSocket didFailWithError:(NSError *)error connectionErrorCode:(SLIMSocketErrorCode)reason {
-    NSLog(@"%s;%@",__func__,error);
+
 }
 
 - (void)webSocketDidOpen:(SLIMSocketManager *)webSocket {
-    NSLog(@"%s",__func__);
+
 }
 
 #pragma mark - SLIMMessageCellDelegate

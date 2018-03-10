@@ -14,7 +14,7 @@
 /**
  聊天气泡背景图片
  */
-+ (UIImage *)bubbleImageViewForOwner:(SLIMMessageOwnerType)ownerType
++ (UIImage *)bubbleImageViewForOwner:(SLIMMessageSourceType)sourceType
                          messageType:(SLIMMessageType)msgType
                        isHighlighted:(BOOL)isHighlighted;
 

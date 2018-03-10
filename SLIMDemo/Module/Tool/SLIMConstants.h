@@ -27,34 +27,32 @@ typedef NS_ENUM(NSInteger, SLIMMessageType) {
 };
 
 //消息归属类型
-typedef NS_ENUM(NSInteger, SLIMMessageOwnerType) {
+typedef NS_ENUM(NSInteger, SLIMMessageSourceType) {
     /** 未知类型消息 */
-    SLIMMessageOwnerTypeNone    = 100,
+    SLIMMessageSourceTypeNone    = 0,
     /** 发出的消息 */
-    SLIMMessageOwnerTypeSelf    = 101,
+    SLIMMessageSourceTypeSelf    = 1,
     /** 收到的消息 */
-    SLIMMessageOwnerTypeOther   = 102,
+    SLIMMessageSourceTypeOther   = 2,
     /** 系统消息 */
-    SLIMMessageOwnerTypeSystem  = 103,
+    SLIMMessageSourceTypeSystem  = 3,
 };
 
 //消息发送状态
 typedef NS_ENUM(NSInteger, SLIMMessageSendStatus) {
     /** 未知状态 */
-    SLIMMessageSendStatusNone       = 201,
+    SLIMMessageSendStatusNone       = 100,
     /** 消息发送中 */
-    SLIMMessageSendStatusSending    = 202,
-    /** 消息发送成功 */
-    SLIMMessageSendStatusSent       = 203,
-    /** 消息已送达 */
-    SLIMMessageSendStatusDelivered  = 204,
+    SLIMMessageSendStatusSending    = 0,
+    /** 消息发送成功（客服未读） */
+    SLIMMessageSendStatusSent       = 1,
+    /** 消息已送达（客服已读） */
+    SLIMMessageSendStatusDelivered  = 2,
     /** 消息发送失败 */
-    SLIMMessageSendStatusFailed     = 205,
-    /** 对方已读消息 */
-    SLIMMessageSendStatusRead       = 206,
+    SLIMMessageSendStatusFailed     = 3,
 };
 
-//储存不同类型的cell class
+/**储存不同类型的cell class*/
 FOUNDATION_EXPORT NSMutableDictionary const * SLIMChatMessageCellTypeDict;
 
 static NSString *const SLIMCellIdentifierOwnerSelf      = @"SLIMCellIdentifierOwnerSelf";
@@ -63,42 +61,3 @@ static NSString *const SLIMCellIdentifierOwnerSystem    = @"SLIMCellIdentifierOw
 
 static CGFloat const SLIMCellMessageContentCapInsetsTopAndBottom = 12.f;
 static CGFloat const SLIMCellMessageContentCapInsetsLeftAndRight = 15.f;
-
-#pragma mark - SQL
-
-#define SLIMConversationTableName                   @"SLIMConversation"
-#define SLIMConversationTableKeyID                  @"hash"
-#define SLIMConversationTablekeyData                @"data"
-#define SLIMConversationTablekeyLocalTimestamp      @"timestamp_local"
-#define SLIMConversationTablekeyServerTimestamp     @"timestamp_server"
-
-#define SLIMConversationTableCreateSQL \
-@"CREATE TABLE IF NOT EXISTS " SLIMConversationTableName @"("   \
-SLIMConversationTableKeyID  @" VARCHAR(63) PRIMARY KEY AUTOINCREMENT, "    \
-LCCKConversationTableKeyData    @" BLOB NOT NULL ," \
-SLIMConversationTablekeyLocalTimestamp @" TIMESTAMP, " \
-SLIMConversationTablekeyServerTimestamp @" TIMESTAMP" \
-@")"
-
-#define SLIMConversationTableInsertSQL  \
-@"INSERT OR IGNORE INTO " SLIMConversationTableName @" ("    \
-SLIMConversationTableKeyID               @", "           \
-LCCKConversationTableKeyData             @", "           \
-SLIMConversationTablekeyLocalTimestamp   @" , "   \
-SLIMConversationTablekeyServerTimestamp \
-@") VALUES(?, ?, ?, ?)"
-
-#define SLIMConversationTableWhereClause \
-@" WHERE " SLIMConversationTableKeyID         @" = ?"
-
-#define SLIMConversationTableDeleteSQL                     \
-@"DELETE FROM " SLIMConversationTableName             \
-SLIMConversationTableWhereClause
-
-#define SLIMDeleteConversationTable                \
-@"DELETE FROM " SLIMConversationTableName
-
-#define SLIMConversationTableUpdateServerTimestamp           \
-@"UPDATE " SLIMConversationTableName         @" "            \
-@"SET " SLIMConversationTablekeyServerTimestamp  @" = ?"          \
-SLIMConversationTableWhereClause

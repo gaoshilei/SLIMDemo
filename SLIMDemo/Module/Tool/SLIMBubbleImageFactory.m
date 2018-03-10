@@ -14,7 +14,7 @@ NSString const *SLIMBubbleImageBundleName = @"MessageBubble";
 
 @implementation SLIMBubbleImageFactory
 
-+ (UIImage *)bubbleImageViewForOwner:(SLIMMessageOwnerType)ownerType
++ (UIImage *)bubbleImageViewForOwner:(SLIMMessageSourceType)sourceType
                          messageType:(SLIMMessageType)msgType
                        isHighlighted:(BOOL)isHighlighted {
     NSString *messageTypeString = @"message_";
@@ -27,13 +27,13 @@ NSString const *SLIMBubbleImageBundleName = @"MessageBubble";
         default:
             break;
     }
-    switch (ownerType) {
-        case SLIMMessageOwnerTypeSelf: {
+    switch (sourceType) {
+        case SLIMMessageSourceTypeSelf: {
             edgeInsets = UIEdgeInsetsMake(30, 16, 16, 24);
             messageTypeString = [messageTypeString stringByAppendingString:@"sender_"];
         }
             break;
-        case SLIMMessageOwnerTypeOther: {
+        case SLIMMessageSourceTypeOther: {
             edgeInsets = UIEdgeInsetsMake(30, 16, 16, 24);
             messageTypeString = [messageTypeString stringByAppendingString:@"receiver_"];
         }
