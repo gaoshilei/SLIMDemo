@@ -11,10 +11,14 @@
 #import "SLAnalogDataGenerator.h"
 #import <UITableView+FDTemplateLayoutCell.h>
 #import "SLIMSocketManager.h"
+#import "NSString+SLIM.h"
+#import <SVProgressHUD.h>
 
 @interface SLIMConverstaionViewController ()<SLIMWebSocketDelegate,SLIMChatMessageCellDelegate> {
     SLIMSocketManager *_socketManager;
 }
+
+@property (nonatomic, copy) NSString *conversationId;
 
 @end
 
@@ -44,7 +48,7 @@
         SLIMMessage *message = [SLIMMessage new];
         message.messageId = [NSString stringWithFormat:@"%ld",i];
         message.text = [SLAnalogDataGenerator randomMessage];
-        message.imageUrl = [NSURL URLWithString:[SLAnalogDataGenerator randomWebImageUrlString]];
+//        message.imageUrl = [NSURL URLWithString:[SLAnalogDataGenerator randomWebImageUrlString]];
         int randomOwner = arc4random()%2;
         if (randomOwner == 1) {
             message.localAvatarImageName = iconNameOther;
@@ -53,17 +57,18 @@
             message.localAvatarImageName = iconNameSelf;
             message.sourceType = SLIMMessageSourceTypeOther;
         }
-        int randomMessageType = arc4random_uniform(100);
-        if (randomMessageType % 2 == 0) {
+//        int randomMessageType = arc4random_uniform(100);
+//        if (randomMessageType % 2 == 0) {
             message.messageType = SLIMMessageTypeText;
-        }else {
-            message.messageType = SLIMMessageTypeImage;
-        }
+//        }else {
+//            message.messageType = SLIMMessageTypeImage;
+//        }
         [self.dataArray addObject:message];
     }
 }
 
 - (void)p_initWebSocket {
+    [SVProgressHUD showWithStatus:@"正在连接服务器"];
     _socketManager = [[SLIMSocketManager alloc] initWithDelegate:self];
     [_socketManager connect];
 }
@@ -116,20 +121,58 @@
 
 #pragma mark - SLIMWebSocketDelegate
 - (void)webSocket:(SLIMSocketManager *)webSocket didReceiveMessage:(id)message {
+    /**
+     didReceiveMessage：{
+         conversationId = 250;
+         data = "\U54c8\U54c8\n";
+         destinationType = 1;
+         from = 10062;
+         hashValue = fbc6e59b84c982ee3565139977bee7c9;
+         id = 998;
+         receiptTime = 1520842308618;
+         sendTime = 1520842545644;
+         sourceType = 2;
+         to = 859;
+         type = 1;
+     }
+     */
     NSDictionary *response = [message mj_JSONObject];
     NSLog(@"didReceiveMessage：%@",response);
+    SLIMMessage *msgModel = [SLIMMessage mj_objectWithKeyValues:response];
+    if (!msgModel || msgModel.data.length==0) {
+        NSLog(@"ERROR: 收到的消息格式错误！");
+        return;
+    }
+    switch (msgModel.messageType) {
+        case SLIMMessageTypeText:
+            [self p_receiveTextMessage:msgModel];
+            break;
+        case SLIMMessageTypeImage:
+            [self p_receiveImageMessage:msgModel];
+            break;
+        case SLIMMessageTypeEstablished: {
+            if (msgModel.conversationId && msgModel.conversationId.length>0) {
+                _conversationId = msgModel.conversationId;
+            }
+        }
+            break;
+        default:
+            break;
+    }
+    [self.dataArray addObject:msgModel];
+    [self reloadData];
 }
 
 - (void)webSocket:(SLIMSocketManager *)webSocket didCloseWithCode:(NSInteger)code reason:(NSString *)reason wasClean:(BOOL)wasClean {
-
+    
 }
 
 - (void)webSocket:(SLIMSocketManager *)webSocket didFailWithError:(NSError *)error connectionErrorCode:(SLIMSocketErrorCode)reason {
-
+    
 }
 
 - (void)webSocketDidOpen:(SLIMSocketManager *)webSocket {
-
+    [SVProgressHUD dismiss];
 }
 
 #pragma mark - SLIMMessageCellDelegate
@@ -137,8 +180,28 @@
 
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+#pragma mark - SLIMChatBarDelegate
+- (void)chatBar:(SLIMChatBar *)chatBar sendTextMessage:(NSString *)message {
+    NSString *sendTimeStr = [NSString stringWithFormat:@"%.0f",[[NSDate date] timeIntervalSince1970]*1000];
+    NSString *encryptStr = [NSString stringWithFormat:@"from=&to=&data=%@&sendTime=%@",message,sendTimeStr];
+    NSDictionary *sendMsg = @{
+                              @"type": @(SLIMMessageTypeText),
+                              @"conversationId": _conversationId,
+                              @"data": message,
+                              @"sendTime": sendTimeStr,
+                              @"hashValue": [encryptStr MD5Hash]
+                              };
+    [_socketManager send:[sendMsg mj_JSONString]];
+}
+
+#pragma mark - 消息收发操作
+
+- (void)p_receiveTextMessage:(SLIMMessage *)message {
+    
+}
+
+- (void)p_receiveImageMessage:(SLIMMessage *)message {
+    
 }
 
 @end

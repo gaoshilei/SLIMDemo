@@ -17,5 +17,6 @@
 @property (nonatomic, assign) BOOL allowScrollToBottom;
 
 - (void)scrollToBottomAnimated:(BOOL)animated;
+- (void)reloadData;
 
 @end

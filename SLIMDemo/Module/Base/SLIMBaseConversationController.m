@@ -119,7 +119,7 @@
     return _chatBar;
 }
 
-#pragma mark - SLChatBarDelegate
+#pragma mark - SLIMChatBarDelegate
 - (void)chatBarFrameDidChange:(SLIMChatBar *)chatBar shouldScrollToBottom:(BOOL)shouldScrollToBottom {
     [UIView animateWithDuration:.25f animations:^{
         [self.view layoutIfNeeded];
@@ -167,10 +167,14 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:rows-1 inSection:0];
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
 }
+
+- (void)reloadData {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+        [self scrollToBottomAnimated:NO];
+    });
+}
+
 #pragma mark - Private Method
-
-
-#pragma mark - SLIMChatBarDelegate
-
 
 @end
