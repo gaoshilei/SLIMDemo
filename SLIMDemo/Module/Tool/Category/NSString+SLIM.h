@@ -12,4 +12,6 @@
 
 - (NSString *)slim_stringByAppendingScale:(NSNumber *)scale;
 
+- (NSString *)MD5Hash;
+
 @end

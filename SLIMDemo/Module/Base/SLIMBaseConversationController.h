@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SLIMSocketManager.h"
 #import "SLIMChatBar.h"
 
 @interface SLIMBaseConversationController : UIViewController<UITableViewDelegate, UITableViewDataSource, SLIMChatBarDelegate>
@@ -17,6 +18,6 @@
 @property (nonatomic, assign) BOOL allowScrollToBottom;
 
 - (void)scrollToBottomAnimated:(BOOL)animated;
-- (void)reloadData;
+- (void)reloadDataWithAnimated:(BOOL)animated;
 
 @end

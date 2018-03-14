@@ -70,9 +70,10 @@
 
 -(void)p_registerMessageCellClass:(Class)aClass {
     NSString *messageCellClassString = NSStringFromClass(aClass);
-    if ([aClass isKindOfClass:[SLIMChatSystemMessageCell class]]) {
+    if ([aClass isSubclassOfClass:[SLIMChatSystemMessageCell class]]) {
         //系统消息
         [self.tableView registerClass:aClass forCellReuseIdentifier:[NSString stringWithFormat:@"%@_%@",messageCellClassString,SLIMCellIdentifierOwnerSystem]];
+        NSLog(@"%@",[NSString stringWithFormat:@"%@_%@",messageCellClassString,SLIMCellIdentifierOwnerSystem]);
     }else {
         //发出的消息
         [self.tableView registerClass:aClass forCellReuseIdentifier:[NSString stringWithFormat:@"%@_%@",messageCellClassString,SLIMCellIdentifierOwnerSelf]];
@@ -147,13 +148,13 @@
 
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    //点击页面收起键盘
-    [[NSNotificationCenter defaultCenter] postNotificationName:kSLIMCharBarKeyboardHideNotificationName object:nil];
-    //点击了tableViewCell，不截获Touch事件
-    if([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
-        return NO;
-    }
-    return YES;
+//    //点击页面收起键盘
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kSLIMCharBarKeyboardHideNotificationName object:nil];
+//    //点击了tableViewCell，不截获Touch事件
+//    if([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+//        return NO;
+//    }
+    return NO;
 }
 #pragma mark - Public Method
 - (void)scrollToBottomAnimated:(BOOL)animated {
@@ -168,10 +169,10 @@
     [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:animated];
 }
 
-- (void)reloadData {
+- (void)reloadDataWithAnimated:(BOOL)animated {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableView reloadData];
-        [self scrollToBottomAnimated:NO];
+        [self scrollToBottomAnimated:animated];
     });
 }
 
